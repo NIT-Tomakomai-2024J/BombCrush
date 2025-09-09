@@ -1,12 +1,14 @@
 extends CharacterBody3D
 
+@export var medal_scene: PackedScene
 # How fast the player moves in meters per second.
 @export var speed = 0.3
 #0.3
 # The downward acceleration when in the air, in meters per second squared.
 var target_velocity = Vector3.ZERO
 var x = 0
-func _physics_process(delta):
+var medal = null
+func _physics_process(_delta: float) -> void:
 	x+=1
 	var direction = Vector3.ZERO
 	direction.z = -1
@@ -19,5 +21,10 @@ func _physics_process(delta):
 	#	target_velocity.y = target_velocity.y - (fall_acceleration * delta)
 	move_and_slide()
 
-func _on_teleport_area_3d_area_entered(area: Area3D) -> void:
-	print(global_position.z)
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("drop"):
+		print("Dropping medal")
+		medal = medal_scene.instantiate()
+		medal.global_position = global_position
+		get_node("..").add_child(medal)
+		

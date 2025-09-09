@@ -1,14 +1,21 @@
-[gd_scene load_steps=13 format=3 uid="uid://b53v8a7mhfm0g"]
+[gd_scene load_steps=17 format=3 uid="uid://b53v8a7mhfm0g"]
 
-[ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://planeBehavior.gd" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://q1lhtxpso7je" path="res://pusherBehavior.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://Scripts/planeBehavior.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://q1lhtxpso7je" path="res://Scripts/pusherBehavior.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dt0ojg5lmad3i" path="res://medal.tscn" id="2_h2yge"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 resource_name = "ground"
-size = Vector3(0.8, 0.25, 0.8)
+size = Vector3(0.8, 0.27, 0.8)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
 size = Vector3(0.8, 0.25, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
+size = Vector3(0.1, 0.27, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7mycd"]
+size = Vector3(0.1, 0.25, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
 size = Vector3(0.1, 0.1, 0.2)
@@ -16,40 +23,49 @@ size = Vector3(0.1, 0.1, 0.2)
 [sub_resource type="BoxMesh" id="BoxMesh_0xm2m"]
 size = Vector3(0.1, 0.1, 0.2)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
-size = Vector3(1, 1, 0.1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
-size = Vector3(1, 1, 0.1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
-size = Vector3(0.5, 0.05, 0.8)
+size = Vector3(0.52, 0.09, 0.8)
 
 [sub_resource type="BoxMesh" id="BoxMesh_1bvp3"]
-size = Vector3(0.5, 0.05, 0.8)
+size = Vector3(0.5, 0.07, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1bvp3"]
-size = Vector3(0.05, 1, 0.8)
+size = Vector3(0.09, 1, 0.8)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lquwl"]
 size = Vector3(0.05, 1, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h2yge"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
+size = Vector3(1.2, 1, 0.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+size = Vector3(1.5, 1, 0.1)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 3
-collision_mask = 0
+collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+[node name="Table" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 shape = SubResource("BoxShape3D_7dm0k")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/Table"]
 mesh = SubResource("BoxMesh_7dm0k")
+skeleton = NodePath("../..")
+
+[node name="DeadZone" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.566002, 0.15, 0)
+shape = SubResource("BoxShape3D_lquwl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/DeadZone"]
+mesh = SubResource("BoxMesh_7mycd")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0.5, -0.866025, 0, 0.866025, 0.5, 1, 2.18557e-08, -3.78552e-08, -1, 1.10368, 0)
+transform = Transform3D(-4.37114e-08, 0.173648, -0.984807, 0, 0.984807, 0.173648, 1, 7.5904e-09, -4.30473e-08, -0.885, 0.749, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0.580703, -0.814116, 0, 0.814116, 0.580703, 1, 2.53833e-08, -3.55861e-08, 0, 0.945, 0)
@@ -57,8 +73,10 @@ shadow_enabled = true
 
 [node name="Plane" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 0.545, 0)
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_ig7tw")
+medal_scene = ExtResource("2_h2yge")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane"]
 shape = SubResource("BoxShape3D_ig7tw")
@@ -72,25 +90,12 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/Area3D"]
 shape = SubResource("BoxShape3D_ig7tw")
 
-[node name="TeleportArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
-collision_layer = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TeleportArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.465, -0.45)
-shape = SubResource("BoxShape3D_0xm2m")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TeleportArea/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
-mesh = SubResource("BoxMesh_ig7tw")
-skeleton = NodePath("../..")
-
-[node name="Pusher" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.3, 0)
+[node name="Pusher" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.28, 0)
+collision_mask = 0
 script = ExtResource("2_0xm2m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pusher"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
 shape = SubResource("BoxShape3D_h2yge")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pusher/CollisionShape3D"]
@@ -99,20 +104,44 @@ skeleton = NodePath("../..")
 
 [node name="walls" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.425, 0.5, 0)
+collision_layer = 2
+collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="walls"]
+[node name="Back" type="CollisionShape3D" parent="walls"]
 shape = SubResource("BoxShape3D_1bvp3")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/Back"]
 mesh = SubResource("BoxMesh_lquwl")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.425, -0.035, 0.45)
+[node name="SubViewport" type="SubViewport" parent="walls/Back"]
+
+[node name="Node2D" type="Node2D" parent="walls/Back/SubViewport"]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="walls/Back/SubViewport/Node2D"]
+scale = Vector2(100, 100)
+mesh = SubResource("BoxMesh_h2yge")
+
+[node name="Camera2D" type="Camera2D" parent="walls/Back/SubViewport/Node2D"]
+
+[node name="Front" type="CollisionShape3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.07, 0, 0)
+visible = false
+shape = SubResource("BoxShape3D_1bvp3")
+
+[node name="Right" type="CollisionShape3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.425, -0.035, 0.5)
 shape = SubResource("BoxShape3D_0xm2m")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="walls/CollisionShape3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="walls/Right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
 mesh = SubResource("BoxMesh_ig7tw")
-skeleton = NodePath("../../../TeleportArea")
+skeleton = NodePath("")
 
-[connection signal="area_entered" from="TeleportArea" to="Plane" method="_on_teleport_area_3d_area_entered"]
+[node name="Left" type="CollisionShape3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.425, -0.035, -0.5)
+shape = SubResource("BoxShape3D_0xm2m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/Left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.07)
+mesh = SubResource("BoxMesh_ig7tw")
+skeleton = NodePath("")
