@@ -7,5 +7,7 @@ func _physics_process(delta):
 	time += 1
 	x = time*0.01*PI
 	#目標のglobal_position = 0.3+0.15*cos(x)
-	self.velocity.x = 0.4+(0.45*cos(x) - global_position.x)
+	self.velocity.x = 0.3+(0.15*cos(x) - global_position.x)
 	move_and_slide()
+	#Collisionの形状(BoxShape)
+	#x:0.56 y:0.09 z:0.8

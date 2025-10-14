@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
 @export var medal_scene: PackedScene
+@export var bomb_scene: PackedScene
+
 # How fast the player moves in meters per second.
 @export var speed = 0.3
 #0.3

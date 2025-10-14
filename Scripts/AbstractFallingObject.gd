@@ -7,7 +7,7 @@ var node = get_node("../FallingArea")
 func bombed(bombPosition: Vector3) -> void:
 	force = global_position - bombPosition
 	force = force.normalized()
-	apply_force(force * 10, Vector3.ZERO)  # Apply force to the object
+	apply_impulse(force * 10, Vector3.ZERO)  # Apply force to the object
 
 #func _ready():
 	#node.area_entered.connect(_falling)

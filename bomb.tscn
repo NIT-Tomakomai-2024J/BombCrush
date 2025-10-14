@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://3jydhyswfg3s"]
+
+[ext_resource type="Script" uid="uid://ivcl13ap7nrf" path="res://Scripts/bombBehavior.gd" id="1_573fp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j810f"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_573fp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4fn8o"]
+radius = 1.0
+
+[node name="RigidBody3D" type="RigidBody3D"]
+script = ExtResource("1_573fp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_j810f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("SphereMesh_573fp")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_4fn8o")
+
+[node name="Timer" type="Timer" parent="."]
