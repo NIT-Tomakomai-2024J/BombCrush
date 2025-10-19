@@ -27,6 +27,11 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop"):
 		print("Dropping medal")
 		medal = medal_scene.instantiate()
-		medal.global_position = global_position
 		get_node("..").add_child(medal)
+		medal.global_position = global_position
+	if event.is_action_pressed("exit"):
+		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+		get_tree().quit()
+
+
 		

@@ -7,8 +7,8 @@ rough = true
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_o7uyf"]
 margin = 1.625
-height = 0.01
-radius = 0.04
+height = 0.02
+radius = 0.07
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ffhn"]
 vertex_color_use_as_albedo = true
@@ -16,9 +16,9 @@ albedo_color = Color(1, 1, 0.0941176, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_3fdyl"]
 material = SubResource("StandardMaterial3D_4ffhn")
-top_radius = 0.04
-bottom_radius = 0.04
-height = 0.01
+top_radius = 0.07
+bottom_radius = 0.07
+height = 0.02
 
 [node name="medal" type="RigidBody3D"]
 collision_layer = 4
