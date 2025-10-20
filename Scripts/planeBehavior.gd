@@ -9,7 +9,19 @@ extends CharacterBody3D
 # The downward acceleration when in the air, in meters per second squared.
 var target_velocity = Vector3.ZERO
 var x = 0
-var medal = null
+var object = null
+#Amounts
+var medalAmount = 20
+var bombAmount = 1000
+var missileAmount = 0
+
+@onready var amountLabel : Label = get_node("../CanvasLayer/Control/AmountLabel")
+
+"""
+Medal:
+Bomb:
+Missile:
+"""
 func _physics_process(_delta: float) -> void:
 	x+=1
 	var direction = Vector3.ZERO
@@ -25,13 +37,36 @@ func _physics_process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop"):
-		print("Dropping medal")
-		medal = medal_scene.instantiate()
-		get_node("..").add_child(medal)
-		medal.global_position = global_position
+		object = null
+		print("Dropping...")
+		if medalAmount >= 1:
+			object = medal_scene.instantiate()
+			medalAmount -= 1
+		elif bombAmount >= 1:
+			object = bomb_scene.instantiate()
+			bombAmount -= 1
+		elif missileAmount >= 1:
+			#object = missile_scene.instantiate()
+			#missileAmount -= 1
+			pass
+		else:
+			print("No items left to drop!")
+		changeAmount()
+		if object != null:
+			get_node("..").add_child(object)
+			object.global_position = global_position
 	if event.is_action_pressed("exit"):
 		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 		get_tree().quit()
 
+func _ready():
+	changeAmount()
 
+func addMedal():
+	medalAmount += 1
+	print("Medal Amount: %d" % medalAmount)
+	changeAmount()
+	
+func changeAmount():
+	amountLabel.text = "Medal: %d\nBomb: %d\nMissile: %d" % [medalAmount, bombAmount, missileAmount]
 		
