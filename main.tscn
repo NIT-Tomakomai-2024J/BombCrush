@@ -1,11 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://b53v8a7mhfm0g"]
+[gd_scene load_steps=18 format=3 uid="uid://b53v8a7mhfm0g"]
 
 [ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://Scripts/planeBehavior.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://q1lhtxpso7je" path="res://Scripts/pusherBehavior.gd" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://dt0ojg5lmad3i" path="res://Resources/medal.tscn" id="2_h2yge"]
-[ext_resource type="PackedScene" uid="uid://3jydhyswfg3s" path="res://Resources/bomb.tscn" id="3_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://br44xkfh5mqs2" path="res://Resources/table_R07_latest.blend" id="5_lquwl"]
-[ext_resource type="Texture2D" uid="uid://qsrax8q3nc8t" path="res://Resources/Epic_BlueSunset_EquiRect_flat.png" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dt0ojg5lmad3i" path="res://Resources/scenes/medal.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://3jydhyswfg3s" path="res://Resources/scenes/bomb.tscn" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://clajddglxnap8" path="res://Resources/models/blends/table.blend" id="5_7mycd"]
+[ext_resource type="Environment" uid="uid://yllty6bc0sdq" path="res://Resources/sky/QualiaSky.tres" id="6_7mycd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 resource_name = "ground"
@@ -45,19 +45,6 @@ resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_5vw27")
 size = Vector3(0.2, 1, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kek77"]
-cull_mode = 1
-albedo_texture = ExtResource("6_7mycd")
-
-[sub_resource type="SphereMesh" id="SphereMesh_4c57u"]
-material = SubResource("StandardMaterial3D_kek77")
-radius = 5.0
-height = 10.0
-
-[sub_resource type="Environment" id="Environment_7mycd"]
-background_mode = 2
-ambient_light_source = 3
-
 [node name="Node3D" type="Node3D"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
@@ -78,7 +65,6 @@ transform = Transform3D(-4.371139e-08, 0.08715574, -0.9961947, 0, 0.9961947, 0.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.21814325, 0.47015157, 0.8552023, 0, -0.87630665, 0.48175377, 0.97591674, 0.10509133, 0.19116038, 0, 2.411, 0)
-visible = false
 shadow_enabled = true
 
 [node name="Plane" type="CharacterBody3D" parent="."]
@@ -136,7 +122,7 @@ Bomb:
 Missile:"
 metadata/_edit_use_anchors_ = true
 
-[node name="table_R07_latest" parent="." instance=ExtResource("5_lquwl")]
+[node name="table2" parent="." instance=ExtResource("5_7mycd")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.725, 0)
 
 [node name="monitor" type="StaticBody3D" parent="."]
@@ -151,8 +137,5 @@ mesh = SubResource("BoxMesh_7mycd")
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true
 
-[node name="backgroundsky" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_4c57u")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_7mycd")
+environment = ExtResource("6_7mycd")
