@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://0e5f7chntxya"]
 
-[ext_resource type="Script" uid="uid://bfi5fkcg257s3" path="res://Scripts/ballBehavior.gd" id="1_shc0i"]
+[ext_resource type="Script" uid="uid://bfi5fkcg257s3" path="res://Scripts/ObjBehaviors/ballBehavior.gd" id="1_shc0i"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4ffhn"]
 rough = true

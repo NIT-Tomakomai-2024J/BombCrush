@@ -26,21 +26,28 @@ Medal:
 Bomb:
 Missile:
 """
-func _ready():
-	changeAmount()
+
+func _process(_delta: float) -> void:
+	$"../CanvasLayer/Control/AmountLabel".text = "Medal: %d\nBomd: %d\nMissile: %d" % [medalAmount, bombAmount, missileAmount]
 
 func _physics_process(_delta: float) -> void:
 	x+=1
 	var direction = Vector3.ZERO
 	direction.z = -1
-	#	$Pivot.basis = Basis.looking_at(direction)
 	if position.z <= -0.505:
 		global_position = Vector3 (global_position.x,global_position.y,0.45)
 	target_velocity.z = direction.z * speed
 	velocity = target_velocity
-	#if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
-	#	target_velocity.y = target_velocity.y - (fall_acceleration * delta)
 	move_and_slide()
+	
+	# レイを飛ばして衝突位置を取得
+	var space_state = get_world_3d().direct_space_state
+	var ray_length  = Vector3(0, -1000, 0)
+	var result = space_state.intersect_ray(PhysicsRayQueryParameters3D.create(global_position, global_position + ray_length))
+	var pos = result.get("position")
+	# 衝突位置にポインタを移動
+	if pos != null and pos is Vector3:
+		$Sprite3D.global_position.y = pos.y + 0.1
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop"):
@@ -58,7 +65,6 @@ func _input(event: InputEvent) -> void:
 			pass
 		else:
 			print("No items left to drop!")
-		changeAmount()
 		if object != null:
 			get_node("..").add_child(object)
 			object.global_position = global_position
@@ -74,42 +80,9 @@ func _input(event: InputEvent) -> void:
 
 # Choose item
 func chooseLeft():
-	chosenOne -= 1
-	if chosenOne < 0:
-		chosenOne = 2
+	chosenOne = (chosenOne - 1) % 3
 	print("Chosen Item: %d" % chosenOne)
-	changeAmount()
 
 func chooseRight():
-	chosenOne += 1
-	if chosenOne > 2:
-		chosenOne = 0
+	chosenOne = (chosenOne + 1) % 3
 	print("Chosen Item: %d" % chosenOne)
-	changeAmount()
-
-# Add amounts
-func addMedal():
-	medalAmount += 1
-	print("Medal Amount: %d" % medalAmount)
-	changeAmount()
-
-func addBomb():
-	bombAmount += 1
-	print("Bomb Amount: %d" % bombAmount)
-	changeAmount()
-
-func addMissile():
-	missileAmount += 1
-	print("Missile Amount: %d" % missileAmount)
-	changeAmount()
-
-func addJackpot(amount):
-	jackpotGauge += amount
-	print("Jackpot Gauge: %d" % jackpotGauge)
-
-#func changeAmount():
-#	amountLabel.text = "Medal: %d\nBomb: %d\nMissile: %d" % [medalAmount, bombAmount, missileAmount]
-
-func changeAmount():
-	amountLabel.text = "Medal: %d\nBomb: %d\nMissile: %d\nChooseNum:%d" % [medalAmount, bombAmount, missileAmount,chosenOne]
-		

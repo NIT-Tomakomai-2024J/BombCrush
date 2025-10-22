@@ -1,8 +1,6 @@
 extends "res://Scripts/AbstractFallingObject.gd"
 
-@onready var plane = get_node("../Plane")
-
 func _falling():
 	print("Falling...")
-	plane.addMedal()
+	get_node("../Plane").medalAmount += 1
 	queue_free()

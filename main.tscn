@@ -1,18 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://b53v8a7mhfm0g"]
+[gd_scene load_steps=19 format=3 uid="uid://b53v8a7mhfm0g"]
 
-[ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://Scripts/planeBehavior.gd" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://q1lhtxpso7je" path="res://Scripts/pusherBehavior.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://b240ywyhm1pvq" path="res://Scripts/fieldSetup.gd" id="1_272bh"]
+[ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://Scripts/ObjBehaviors/planeBehavior.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://q1lhtxpso7je" path="res://Scripts/ObjBehaviors/pusherBehavior.gd" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dt0ojg5lmad3i" path="res://Resources/scenes/medal.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://3jydhyswfg3s" path="res://Resources/scenes/bomb.tscn" id="3_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://b18bha5qhg8b4" path="res://Resources/images/pos_visualiser.png" id="5_5vw27"]
 [ext_resource type="PackedScene" uid="uid://clajddglxnap8" path="res://Resources/models/blends/table.blend" id="5_7mycd"]
 [ext_resource type="Environment" uid="uid://yllty6bc0sdq" path="res://Resources/sky/QualiaSky.tres" id="6_7mycd"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
-resource_name = "ground"
-size = Vector3(0.8, 0.27, 1.4)
-
-[sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
-size = Vector3(0.8, 0.25, 1.4)
+[sub_resource type="BoxShape3D" id="BoxShape3D_272bh"]
+size = Vector3(1.4440918, 1.0070801, 1.954834)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
 size = Vector3(0.1, 0.1, 0.2)
@@ -34,7 +32,7 @@ resource_local_to_scene = true
 size = Vector3(0.2, 1, 2)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_272bh"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("monitor/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5vw27"]
 resource_local_to_scene = true
@@ -46,19 +44,19 @@ material = SubResource("StandardMaterial3D_5vw27")
 size = Vector3(0.2, 1, 2)
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_272bh")
 
 [node name="Ground" type="StaticBody3D" parent="."]
-visible = false
 collision_layer = 3
 collision_mask = 4
 
 [node name="Table" type="CollisionShape3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
-shape = SubResource("BoxShape3D_7dm0k")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2830515, -0.21901855, 0.0064697266)
+shape = SubResource("BoxShape3D_272bh")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/Table"]
-mesh = SubResource("BoxMesh_7dm0k")
-skeleton = NodePath("../..")
+[node name="Table2" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(0.9392801, -0.34315157, 0, 0.34315157, 0.9392801, 0, 0, 0, 1, 0.78198224, -0.039227933, 0.0064697266)
+shape = SubResource("BoxShape3D_272bh")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0.08715574, -0.9961947, 0, 0.9961947, 0.08715574, 1, 3.8096983e-09, -4.3545054e-08, -0.997, 0.798, 0)
@@ -86,6 +84,11 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/Area3D"]
 shape = SubResource("BoxShape3D_ig7tw")
+
+[node name="Sprite3D" type="Sprite3D" parent="Plane"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.67482895, 0)
+pixel_size = 0.001
+texture = ExtResource("5_5vw27")
 
 [node name="Pusher" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.28, 0)
@@ -134,8 +137,10 @@ shape = SubResource("BoxShape3D_lquwl")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="monitor/CollisionShape3D"]
 mesh = SubResource("BoxMesh_7mycd")
 
-[node name="SubViewport" type="SubViewport" parent="."]
-disable_3d = true
+[node name="SubViewport" type="SubViewport" parent="monitor"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("6_7mycd")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27356106, -0.7022791)
