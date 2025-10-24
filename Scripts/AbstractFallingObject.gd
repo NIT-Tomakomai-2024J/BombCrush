@@ -2,6 +2,7 @@
 
 var target_velocity = Vector3.ZERO
 var force = Vector3.ZERO
+var falled = false
 @onready var setup:Node3D= get_node("/root/Node3D")
 
 func _ready() -> void:
@@ -19,6 +20,7 @@ func bombed(bombPosition: Vector3) -> void:
 @abstract func _falling() -> void
 
 func _process(_delta: float) -> void:
-	if global_position.y < 0 and get_parent() != null:
+	if global_position.y < 0 and get_parent() != null && !falled:
 		_falling()
+		falled = true
 

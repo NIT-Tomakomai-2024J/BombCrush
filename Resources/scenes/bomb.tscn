@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://3jydhyswfg3s"]
+[gd_scene load_steps=7 format=3 uid="uid://3jydhyswfg3s"]
 
 [ext_resource type="Script" uid="uid://ivcl13ap7nrf" path="res://Scripts/ObjBehaviors/bombBehavior.gd" id="1_573fp"]
+[ext_resource type="AudioStream" uid="uid://cjoxxnjjccb4j" path="res://Resources/sounds/se/explosion.wav" id="2_10vvm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t44cw"]
 
@@ -36,5 +37,8 @@ shape = SubResource("SphereShape3D_4fn8o")
 wait_time = 2.9999999999999996
 one_shot = true
 autostart = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_10vvm")
 
 [connection signal="timeout" from="Timer" to="." method="bomb"]

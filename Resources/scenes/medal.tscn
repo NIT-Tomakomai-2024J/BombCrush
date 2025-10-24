@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dt0ojg5lmad3i"]
+[gd_scene load_steps=7 format=3 uid="uid://dt0ojg5lmad3i"]
 
 [ext_resource type="Script" uid="uid://dk38v4toikx75" path="res://Scripts/ObjBehaviors/medalBehavior.gd" id="1_4ffhn"]
+[ext_resource type="AudioStream" uid="uid://b7vj110kykhy8" path="res://Resources/sounds/se/payout.wav" id="2_fdk0q"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4ffhn"]
 
@@ -32,3 +33,6 @@ shape = SubResource("CylinderShape3D_o7uyf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
 mesh = SubResource("CylinderMesh_3fdyl")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_fdk0q")

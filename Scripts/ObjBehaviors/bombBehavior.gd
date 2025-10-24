@@ -14,4 +14,7 @@ func bomb():
 	for body in explosion_area.get_overlapping_bodies():
 		if body is AbstractFallingObject:
 			body.bombed(global_position)
+	$AudioStreamPlayer3D.play()
+	visible = false
+	await $AudioStreamPlayer3D.finished
 	queue_free()
