@@ -39,7 +39,7 @@ func _physics_process(_delta: float) -> void:
 	target_velocity.z = direction.z * speed
 	velocity = target_velocity
 	move_and_slide()
-	
+	"""
 	# レイを飛ばして衝突位置を取得
 	var space_state = get_world_3d().direct_space_state
 	var ray_length  = Vector3(0, -1000, 0)
@@ -48,6 +48,7 @@ func _physics_process(_delta: float) -> void:
 	# 衝突位置にポインタを移動
 	if pos != null and pos is Vector3:
 		$Sprite3D.global_position.y = pos.y + 0.1
+	"""
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop"):
