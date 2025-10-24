@@ -20,6 +20,7 @@ var jackpotGauge = 0
 var chosenOne = 0
 
 @onready var amountLabel : Label = get_node("../CanvasLayer/Control/AmountLabel")
+@onready var targetingEntity = get_node("../TargetingEntity")
 
 """
 Medal:
@@ -81,9 +82,21 @@ func _input(event: InputEvent) -> void:
 
 # Choose item
 func chooseLeft():
-	chosenOne = (chosenOne - 1) % 3
+	if chosenOne == 2:
+		targetingEntity.set_automatic_target()
+	chosenOne -= 1
+	if chosenOne < 0:
+		chosenOne = 2
 	print("Chosen Item: %d" % chosenOne)
+	if chosenOne == 2:
+		targetingEntity.set_manual_target()
 
 func chooseRight():
-	chosenOne = (chosenOne + 1) % 3
+	if chosenOne == 2:
+		targetingEntity.set_automatic_target()
+	chosenOne += 1
+	if chosenOne > 2:
+		chosenOne = 0
 	print("Chosen Item: %d" % chosenOne)
+	if chosenOne == 2:
+		targetingEntity.set_manual_target()
