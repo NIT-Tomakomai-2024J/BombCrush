@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b53v8a7mhfm0g"]
+[gd_scene load_steps=26 format=3 uid="uid://b53v8a7mhfm0g"]
 
 [ext_resource type="Script" uid="uid://b240ywyhm1pvq" path="res://Scripts/fieldSetup.gd" id="1_272bh"]
 [ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://Scripts/ObjBehaviors/planeBehavior.gd" id="1_ig7tw"]
@@ -12,6 +12,18 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_272bh"]
 size = Vector3(1.4440918, 1.0070801, 1.954834)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kek77"]
+size = Vector3(2, 2, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4c57u"]
+size = Vector3(2, 2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_efxa6"]
+size = Vector3(0.2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dg77c"]
+size = Vector3(0.2, 2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
 size = Vector3(0.1, 0.1, 0.2)
@@ -45,7 +57,7 @@ material = SubResource("StandardMaterial3D_5vw27")
 size = Vector3(0.2, 1, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4c57u"]
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.001, 0.001, 0.001)
 
 [sub_resource type="BoxMesh" id="BoxMesh_kek77"]
 size = Vector3(0.1, 0.1, 0.1)
@@ -53,17 +65,51 @@ size = Vector3(0.1, 0.1, 0.1)
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_272bh")
 
-[node name="Ground" type="StaticBody3D" parent="."]
+[node name="Building" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Building"]
 collision_layer = 3
 collision_mask = 4
 
-[node name="Table" type="CollisionShape3D" parent="Ground"]
+[node name="Table" type="CollisionShape3D" parent="Building/Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2830515, -0.21901855, 0.0064697266)
 shape = SubResource("BoxShape3D_272bh")
 
-[node name="Table2" type="CollisionShape3D" parent="Ground"]
+[node name="Slope" type="CollisionShape3D" parent="Building/Ground"]
 transform = Transform3D(0.9392801, -0.34315157, 0, 0.34315157, 0.9392801, 0, 0, 0, 1, 0.78198224, -0.039227933, 0.0064697266)
 shape = SubResource("BoxShape3D_272bh")
+
+[node name="TableMesh" parent="Building/Ground" instance=ExtResource("5_7mycd")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.725, 0)
+
+[node name="Wall" type="StaticBody3D" parent="Building"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Left" type="CollisionShape3D" parent="Building/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283, 0.765414, -0.79305744)
+shape = SubResource("BoxShape3D_kek77")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Wall/Left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0028567314)
+visible = false
+mesh = SubResource("BoxMesh_4c57u")
+
+[node name="Right" type="CollisionShape3D" parent="Building/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283, 0.765, 0.795249)
+shape = SubResource("BoxShape3D_kek77")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Wall/Right"]
+visible = false
+mesh = SubResource("BoxMesh_4c57u")
+
+[node name="Front" type="CollisionShape3D" parent="Building/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.7, 0)
+shape = SubResource("BoxShape3D_efxa6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Wall/Front"]
+visible = false
+mesh = SubResource("BoxMesh_dg77c")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0.08715574, -0.9961947, 0, 0.9961947, 0.08715574, 1, 3.8096983e-09, -4.3545054e-08, -0.997, 0.798, 0)
@@ -126,9 +172,6 @@ text = "Medal:
 Bomb:
 Missile:"
 metadata/_edit_use_anchors_ = true
-
-[node name="table2" parent="." instance=ExtResource("5_7mycd")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.725, 0)
 
 [node name="monitor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1.05, 0)
