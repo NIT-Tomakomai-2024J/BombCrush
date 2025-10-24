@@ -37,10 +37,10 @@ size = Vector3(0.56, 0.09, 1.6)
 [sub_resource type="BoxMesh" id="BoxMesh_1bvp3"]
 size = Vector3(0.54, 0.07, 1.6)
 
-[sub_resource type="Theme" id="Theme_kek77"]
-
 [sub_resource type="Theme" id="Theme_h2yge"]
 default_font_size = 40
+
+[sub_resource type="Theme" id="Theme_kek77"]
 
 [sub_resource type="Theme" id="Theme_4c57u"]
 
@@ -142,6 +142,8 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/Area3D"]
 shape = SubResource("BoxShape3D_ig7tw")
 
+[node name="GameTimer" type="Timer" parent="Plane"]
+
 [node name="Pusher" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.28, 0)
 collision_mask = 0
@@ -164,17 +166,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PauseUI" type="Control" parent="CanvasLayer/Control"]
+[node name="GameUI" type="CanvasLayer" parent="CanvasLayer/Control"]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+
+[node name="AmountLabel" type="Label" parent="CanvasLayer/Control/GameUI"]
+anchors_preset = -1
+anchor_left = 0.013888889
+anchor_top = 0.029320987
+anchor_right = 0.26500002
+anchor_bottom = 0.384
+offset_right = -0.5231018
+offset_bottom = 0.27912903
+theme = SubResource("Theme_h2yge")
+text = "Medal:
+Bomb:
+Missile:"
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseUI" type="CanvasLayer" parent="CanvasLayer/Control"]
+visible = false
 
 [node name="ExitButton" type="Button" parent="CanvasLayer/Control/PauseUI"]
-layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.41300002
 anchor_top = 0.79300004
@@ -190,40 +202,12 @@ theme = SubResource("Theme_kek77")
 theme_override_font_sizes/font_size = 75
 text = "EXIT"
 
-[node name="GameUI" type="Control" parent="CanvasLayer/Control"]
+[node name="EndGameUI" type="CanvasLayer" parent="CanvasLayer/Control"]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
-[node name="AmountLabel" type="Label" parent="CanvasLayer/Control/GameUI"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.013888889
-anchor_top = 0.029320987
-anchor_right = 0.26500002
-anchor_bottom = 0.384
-offset_right = -0.5231018
-offset_bottom = 0.27912903
-theme = SubResource("Theme_h2yge")
-text = "Medal:
-Bomb:
-Missile:"
-metadata/_edit_use_anchors_ = true
-
-[node name="TitleScreen" type="Control" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TitleScreen" type="CanvasLayer" parent="CanvasLayer/Control"]
 
 [node name="StartButton" type="Button" parent="CanvasLayer/Control/TitleScreen"]
-layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.37
 anchor_top = 0.79300004

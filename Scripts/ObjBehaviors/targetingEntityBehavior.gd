@@ -9,7 +9,11 @@ func _physics_process(_delta: float) -> void:
 	if plane.chosenOne != 2:
 		# 当たり判定を飛行機の元に移動
 		var plane_position : Vector3 = plane.global_position
-		velocity = (plane_position - global_position).normalized() * 1
+		var distance : float = global_position.distance_to(plane_position)
+		if distance > 0.1:
+			velocity = (plane_position - global_position).normalized() * 5
+		else:
+			velocity = (plane_position - global_position).normalized()
 	else:
 		var direction : Vector3 = Vector3.ZERO
 		# 当たり判定を自由に操作

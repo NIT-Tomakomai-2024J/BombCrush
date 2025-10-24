@@ -1,20 +1,19 @@
 extends Node3D
-signal initialization
 
+signal initialization
+signal game_start
 
 const GROUND:float = 1
-var game_play:bool = false
 var is_initialized:bool = false
-@onready var title_screen : Control = get_node("CanvasLayer/Control/TitleScreen")
-#TitleScreen
+@onready var title_screen : CanvasLayer = get_node("CanvasLayer/Control/TitleScreen")
+
+# TitleScreen
 func _ready() -> void:
-	self.initialization.connect(initialized)
 	# メダルを配置
-	for i in range(0, 500):
-		var rand_pos = Vector3(randf_range(-3.4, 0.4), GROUND, randf_range(-0.7, 0.7))
-		var coin = preload("res://Resources/scenes/medal.tscn").instantiate()
-		coin.position = rand_pos
-		self.add_child(coin)
+	arrangement()
+	# 初期化完了を通知
+	await get_tree().create_timer(4).timeout
+	self.initialization.connect(initialized)
 	initialization.emit()
 
 func initialized() -> void:
@@ -23,7 +22,14 @@ func initialized() -> void:
 
 func start_game() -> void:
 	title_screen.visible = false
-	game_play = true
+	game_start.emit()
+
+func arrangement() -> void:
+	for i in range(0, 500):
+		var rand_pos = Vector3(randf_range(-3.4, 0.4), GROUND, randf_range(-0.7, 0.7))
+		var medal = preload("res://Resources/scenes/medal.tscn").instantiate()
+		medal.position = rand_pos
+		self.add_child(medal)
 
 func _on_start_button_pressed() -> void:
 	if not is_initialized:

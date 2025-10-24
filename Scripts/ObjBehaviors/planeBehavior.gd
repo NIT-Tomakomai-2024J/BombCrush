@@ -11,24 +11,41 @@ var target_velocity = Vector3.ZERO
 var x = 0
 var object = null
 # Amounts
-var medalAmount = 20
-var bombAmount = 1000
+var medalAmount = 0
+var bombAmount = 0
 var missileAmount = 0
 
 var jackpotGauge = 0
 # ['Medal', 'Bomb', 'Missile']
 var chosenOne = 0
-
-@onready var amountLabel : Label = get_node("../CanvasLayer/Control/GameUI/AmountLabel")
-@onready var ui : Control = get_node("../CanvasLayer/Control/PauseUI")
-@onready var targetingEntity = get_node("../TargetingEntity")
-
 """
 Medal:
 Bomb:
 Missile:
 """
 
+@onready var gameUI:CanvasLayer = get_node("../CanvasLayer/Control/GameUI")
+@onready var amountLabel:Label = gameUI.get_node("AmountLabel")
+@onready var pauseUI:CanvasLayer = get_node("../CanvasLayer/Control/PauseUI")
+@onready var targetingEntity = get_node("../TargetingEntity")
+
+@onready var gameTimer:Timer = get_node("../GameTimer")
+
+# ゲームのプレイ中であるかどうか
+var game_play:bool = false
+
+func _ready() -> void:
+	gameUI.visible = false
+	pauseUI.visible = false
+	get_node("../").game_start.connect(game_start)
+
+func game_start() -> void:
+	game_play = true
+	gameUI.visible = true
+	medalAmount = 20
+	bombAmount = 20
+
+# アイテム数表示
 func _process(_delta: float) -> void:
 	amountLabel.text = "Medal: %d\nBomd: %d\nMissile: %d" % [medalAmount, bombAmount, missileAmount]
 
@@ -79,7 +96,8 @@ func _input(event: InputEvent) -> void:
 		chooseRight()
 		
 	if event.is_action_pressed("pause"):
-		ui.visible = !ui.visible
+		if game_play:
+			pauseUI.visible = !pauseUI.visible
 		"""
 		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 		get_tree().quit()
