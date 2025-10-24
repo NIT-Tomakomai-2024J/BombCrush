@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://0e5f7chntxya"]
+[gd_scene load_steps=6 format=3 uid="uid://0e5f7chntxya"]
 
 [ext_resource type="Script" uid="uid://bfi5fkcg257s3" path="res://Scripts/ObjBehaviors/ballBehavior.gd" id="1_shc0i"]
 
@@ -8,7 +8,11 @@ rough = true
 [sub_resource type="SphereShape3D" id="SphereShape3D_g3pxj"]
 radius = 0.1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htd8v"]
+albedo_color = Color(2.6380582, 5.265831e-05, 1.1573254e-05, 1)
+
 [sub_resource type="SphereMesh" id="SphereMesh_7bvlq"]
+material = SubResource("StandardMaterial3D_htd8v")
 radius = 0.1
 height = 0.2
 

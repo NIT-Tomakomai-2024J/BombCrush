@@ -18,18 +18,16 @@ var object = null
 # Amounts
 var medalAmount = 0
 var bombAmount = 0
-var missileAmount = 0
 
 var medalDropCount = 0
 var lastMedalCount = 0
 var numberOfCoinsInserted = 0
 var numberOfBombsDropped = 0
-var numberOfMissilesFired = 0
 var jackpotCount = 0
 
 var jackpotGauge = 0
 # ['Medal', 'Bomb', 'Missile']
-var chosenOne = 0
+var chosenOne:bool = false
 """
 Medal:
 Bomb:
@@ -72,11 +70,9 @@ func game_start() -> void:
 	gameUI.visible = true
 	medalAmount = 20
 	bombAmount = 20
-	missileAmount = 5
 	medalDropCount = 0
 	numberOfBombsDropped = 0
 	numberOfCoinsInserted = 0
-	numberOfMissilesFired = 0
 	jackpotCount = 0
 	jackpotGauge = 0
 	gameTimer.start(300) # 5分間のタイマーを開始
@@ -85,11 +81,11 @@ func game_start() -> void:
 func showResult() -> void:
 	lastMedalCount = medalAmount
 	game_play = false
-	resultLabel.text = "投入されたメダルの数:%d\n投下したボムの数:%d\n発射したミサイルの数:%d\n落としたメダルの数:%d\nジャックポットに入った回数:%d\n最終メダル数:%d" % [numberOfCoinsInserted, numberOfBombsDropped, numberOfMissilesFired, medalDropCount, jackpotCount, lastMedalCount]
+	resultLabel.text = "投入されたメダルの数:%d\n投下したボムの数:%d\n落としたメダルの数:%d\nジャックポットに入った回数:%d\n最終メダル数:%d" % [numberOfCoinsInserted, numberOfBombsDropped, medalDropCount, jackpotCount, lastMedalCount]
 
 # 表示
 func _process(_delta: float) -> void:
-	amountLabel.text = "Medal: %d\nBomb: %d\nMissile: %d" % [medalAmount, bombAmount, missileAmount]
+	amountLabel.text = "Medal: %d\nBomb: %d" % [medalAmount, bombAmount]
 	timerLabel.text = "残りプレイ時間 %d:%02d" % [int(gameTimer.time_left/60), int(gameTimer.time_left)%60]
 
 func _physics_process(_delta: float) -> void:
@@ -109,36 +105,21 @@ func _input(event: InputEvent) -> void:
 		if game_play == true:
 			object = null
 			print("Dropping...")
-			if medalAmount >= 1 && chosenOne == 0:
+			if medalAmount >= 1 && chosenOne == false:
 				object = medal_scene.instantiate()
 				medalAmount -= 1
 				numberOfCoinsInserted += 1
-			elif bombAmount >= 1 && chosenOne == 1:
+			elif bombAmount >= 1 && chosenOne == true:
 				object = bomb_scene.instantiate()
 				bombAmount -= 1
 				numberOfBombsDropped += 1
-			
-			elif missileAmount >= 1 && chosenOne == 2:
-				object = aim_missile_scene.instantiate()
-				missileAmount -= 1
-				numberOfMissilesFired += 1
 			else:
 				print("No items left to drop!")
 			if object != null:
 				get_node("..").add_child(object)
-				if chosenOne != 2:
-					object.global_position = Vector3(targetingEntity.global_position.x, global_position.y, targetingEntity.global_position.z)
-				else:
-					object.global_position = targetingEntity.get_node("Aim").global_position
-				var missile = missile_scene.instantiate()
-				get_node("/root/Node3D").add_child(missile)
-				missile.global_position = Vector3(randf_range(-3.4, 0.4), 5, randf_range(-0.7, 0.7))
-				missile.target_position = object.global_position
 	
-	if event.is_action_pressed("select_previous_item"):
-		chooseLeft()
-	elif event.is_action_pressed("select_next_item"):
-		chooseRight()
+	if event.is_action_pressed("select_previous_item") or event.is_action_pressed("select_next_item"):
+		chosenOne = !chosenOne
 		
 	# Pause
 	if event.is_action_pressed("pause"):
@@ -154,24 +135,3 @@ func _input(event: InputEvent) -> void:
 func _exit_game() ->void:
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()
-
-# Choose item
-func chooseLeft():
-	if chosenOne == 2:
-		targetingEntity.set_automatic_target()
-	chosenOne -= 1
-	if chosenOne < 0:
-		chosenOne = 2
-	print("Chosen Item: %d" % chosenOne)
-	if chosenOne == 2:
-		targetingEntity.set_manual_target()
-
-func chooseRight():
-	if chosenOne == 2:
-		targetingEntity.set_automatic_target()
-	chosenOne += 1
-	if chosenOne > 2:
-		chosenOne = 0
-	print("Chosen Item: %d" % chosenOne)
-	if chosenOne == 2:
-		targetingEntity.set_manual_target()
