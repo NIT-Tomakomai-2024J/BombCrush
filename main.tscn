@@ -1,7 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://b53v8a7mhfm0g"]
+[gd_scene load_steps=28 format=3 uid="uid://b53v8a7mhfm0g"]
 
-[ext_resource type="Script" uid="uid://b240ywyhm1pvq" path="res://Scripts/fieldSetup.gd" id="1_272bh"]
 [ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://Scripts/ObjBehaviors/planeBehavior.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://bqatdqv3at11a" path="res://Scripts/Setup.gd" id="1_kek77"]
 [ext_resource type="Script" uid="uid://q1lhtxpso7je" path="res://Scripts/ObjBehaviors/pusherBehavior.gd" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dt0ojg5lmad3i" path="res://Resources/scenes/medal.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://3jydhyswfg3s" path="res://Resources/scenes/bomb.tscn" id="3_1bvp3"]
@@ -37,10 +37,12 @@ size = Vector3(0.56, 0.09, 1.6)
 [sub_resource type="BoxMesh" id="BoxMesh_1bvp3"]
 size = Vector3(0.54, 0.07, 1.6)
 
+[sub_resource type="Theme" id="Theme_kek77"]
+
 [sub_resource type="Theme" id="Theme_h2yge"]
 default_font_size = 40
 
-[sub_resource type="Theme" id="Theme_kek77"]
+[sub_resource type="Theme" id="Theme_4c57u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
 resource_local_to_scene = true
@@ -65,7 +67,7 @@ size = Vector3(0.001, 0.001, 0.001)
 size = Vector3(0.1, 0.1, 0.1)
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_272bh")
+script = ExtResource("1_kek77")
 
 [node name="Building" type="Node3D" parent="."]
 
@@ -162,19 +164,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AmountLabel" type="Label" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.013888889
-anchor_top = 0.029320987
-anchor_right = 0.14496528
-anchor_bottom = 0.12654321
-theme = SubResource("Theme_h2yge")
-text = "Medal:
-Bomb:
-Missile:"
-metadata/_edit_use_anchors_ = true
-
 [node name="PauseUI" type="Control" parent="CanvasLayer/Control"]
 visible = false
 layout_mode = 1
@@ -200,6 +189,54 @@ grow_vertical = 2
 theme = SubResource("Theme_kek77")
 theme_override_font_sizes/font_size = 75
 text = "EXIT"
+
+[node name="GameUI" type="Control" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AmountLabel" type="Label" parent="CanvasLayer/Control/GameUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013888889
+anchor_top = 0.029320987
+anchor_right = 0.26500002
+anchor_bottom = 0.384
+offset_right = -0.5231018
+offset_bottom = 0.27912903
+theme = SubResource("Theme_h2yge")
+text = "Medal:
+Bomb:
+Missile:"
+metadata/_edit_use_anchors_ = true
+
+[node name="TitleScreen" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Control/TitleScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37
+anchor_top = 0.79300004
+anchor_right = 0.63000005
+anchor_bottom = 0.9480001
+offset_left = -0.23999023
+offset_top = 0.13598633
+offset_right = 0.2399292
+offset_bottom = -0.30407715
+pivot_offset = Vector2(150, 50)
+theme = SubResource("Theme_4c57u")
+theme_override_font_sizes/font_size = 60
+text = "スタート"
 
 [node name="monitor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1.05, 0)
@@ -233,3 +270,4 @@ shape = SubResource("BoxShape3D_4c57u")
 mesh = SubResource("BoxMesh_kek77")
 
 [connection signal="pressed" from="CanvasLayer/Control/PauseUI/ExitButton" to="Plane" method="_exit_game"]
+[connection signal="pressed" from="CanvasLayer/Control/TitleScreen/StartButton" to="." method="_on_start_button_pressed"]

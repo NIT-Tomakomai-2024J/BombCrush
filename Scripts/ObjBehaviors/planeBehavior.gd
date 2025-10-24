@@ -19,7 +19,7 @@ var jackpotGauge = 0
 # ['Medal', 'Bomb', 'Missile']
 var chosenOne = 0
 
-@onready var amountLabel : Label = get_node("../CanvasLayer/Control/AmountLabel")
+@onready var amountLabel : Label = get_node("../CanvasLayer/Control/GameUI/AmountLabel")
 @onready var ui : Control = get_node("../CanvasLayer/Control/PauseUI")
 @onready var targetingEntity = get_node("../TargetingEntity")
 
@@ -30,7 +30,7 @@ Missile:
 """
 
 func _process(_delta: float) -> void:
-	$"../CanvasLayer/Control/AmountLabel".text = "Medal: %d\nBomd: %d\nMissile: %d" % [medalAmount, bombAmount, missileAmount]
+	amountLabel.text = "Medal: %d\nBomd: %d\nMissile: %d" % [medalAmount, bombAmount, missileAmount]
 
 func _physics_process(_delta: float) -> void:
 	x+=1
