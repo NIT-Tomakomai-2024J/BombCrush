@@ -72,13 +72,14 @@ func game_start() -> void:
 	numberOfCoinsInserted = 0
 	jackpotCount = 0
 	jackpotGauge = 0
-	gameTimer.start(300) # 5分間のタイマーを開始
+	gameTimer.start(120) # 2分間のタイマーを開始
 
 # リザルト表示
 func showResult() -> void:
 	lastMedalCount = medalAmount
 	game_play = false
-	resultLabel.text = "投入されたメダルの数:%d\n投下したボムの数:%d\n落としたメダルの数:%d\nジャックポットに入った回数:%d\n最終メダル数:%d" % [numberOfCoinsInserted, numberOfBombsDropped, medalDropCount, jackpotCount, lastMedalCount]
+	#resultLabel.text = "投入されたメダルの数:%d\n投下したボムの数:%d\n落としたメダルの数:%d\nジャックポットに入った回数:%d\n最終メダル数:%d" % [numberOfCoinsInserted, numberOfBombsDropped, medalDropCount, jackpotCount, lastMedalCount]
+	resultLabel.text = "投入されたメダルの数:%d\n投下したボムの数:%d\n落としたメダルの数:%d\n最終メダル数:%d" % [numberOfCoinsInserted, numberOfBombsDropped, medalDropCount, lastMedalCount]
 
 func _process(_delta: float) -> void:
 	# 表示

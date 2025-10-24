@@ -226,6 +226,14 @@ text = "EXIT"
 [node name="Result" type="CanvasLayer" parent="CanvasLayer/Control"]
 script = ExtResource("7_4c57u")
 
+[node name="BackGround" type="ColorRect" parent="CanvasLayer/Control/Result"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+
 [node name="ExitButton" type="Button" parent="CanvasLayer/Control/Result"]
 anchors_preset = -1
 anchor_left = 0.564
@@ -279,6 +287,14 @@ text = "投下したメダルの数:100
 
 [node name="TitleScreen" type="CanvasLayer" parent="CanvasLayer/Control"]
 visible = false
+
+[node name="BackGround" type="ColorRect" parent="CanvasLayer/Control/TitleScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.30323282, 0.30323282, 0.30323282, 1)
 
 [node name="StartButton" type="Button" parent="CanvasLayer/Control/TitleScreen"]
 anchors_preset = -1
