@@ -1,11 +1,15 @@
 extends CanvasLayer
 
 @onready var setup:Node3D= get_node("/root/Node3D")
+
+
 # シグナル
 #setup.game_end.connect(showResult)
 func _ready() -> void:
 	setup.game_end.connect(end_game)
-	
+
+func restart_in_pause() -> void:
+	setup.game_end.emit()
 func end_game():
 	setup.is_initialized = false
 	visible = true
@@ -16,6 +20,7 @@ func end_game():
 
 
 func _on_restart_button_pressed() -> void:
+	get_tree().paused = false
 	if not setup.is_initialized:
 		await setup.initialization
 	visible = false

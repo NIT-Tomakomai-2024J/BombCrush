@@ -65,6 +65,7 @@ func game_start() -> void:
 	# 初期化
 	game_play = true
 	gameUI.visible = true
+	pauseUI.visible = false
 	medalAmount = 20
 	bombAmount = 20
 	medalDropCount = 0
@@ -72,7 +73,7 @@ func game_start() -> void:
 	numberOfCoinsInserted = 0
 	jackpotCount = 0
 	jackpotGauge = 0
-	gameTimer.start(120) # 2分間のタイマーを開始
+	gameTimer.start(150) # 2:30分間のタイマーを開始
 
 # リザルト表示
 func showResult() -> void:
@@ -83,10 +84,13 @@ func showResult() -> void:
 
 func _process(_delta: float) -> void:
 	# 表示
-	amountLabel.text = "Medal: %d\nBomb: メダル10枚" % medalAmount
+	if !chosenOne:
+		amountLabel.text = "➤Medal: %d\nBomb: メダル30枚" % medalAmount
+	else:
+		amountLabel.text = "Medal: %d\n➤Bomb: メダル30枚" % medalAmount
 	timerLabel.text = "残りプレイ時間 %d:%02d" % [int(gameTimer.time_left/60), int(gameTimer.time_left)%60]
 	# メダル数を一定以上に維持
-	if existingMedalsAmount < 300:
+	if existingMedalsAmount < 300 && game_play:
 		var rand_pos = Vector3(randf_range(0.8, 1.0), 1, randf_range(-0.7, 0.7))
 		var medal = medal_scene.instantiate()
 		medal.position = rand_pos
@@ -114,9 +118,9 @@ func _input(event: InputEvent) -> void:
 				object = medal_scene.instantiate()
 				medalAmount -= 1
 				numberOfCoinsInserted += 1
-			elif medalAmount >= 10 && chosenOne == true:
+			elif medalAmount >= 30 && chosenOne == true:
 				object = bomb_scene.instantiate()
-				medalAmount -= 10
+				medalAmount -= 30
 				numberOfBombsDropped += 1
 			else:
 				print("No items left to drop!")
