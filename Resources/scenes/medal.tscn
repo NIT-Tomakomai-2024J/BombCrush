@@ -19,7 +19,8 @@ top_radius = 0.07
 bottom_radius = 0.07
 height = 0.02
 
-[node name="medal" type="RigidBody3D"]
+[node name="Medal" type="RigidBody3D"]
+process_mode = 1
 collision_layer = 4
 collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_4ffhn")

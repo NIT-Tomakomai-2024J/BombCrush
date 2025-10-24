@@ -9,6 +9,7 @@ var is_initialized:bool = false
 
 # TitleScreen
 func _ready() -> void:
+	title_screen.visible = true
 	# メダルを配置
 	arrangement()
 	# 初期化完了を通知

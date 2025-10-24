@@ -26,10 +26,12 @@ Missile:
 
 @onready var gameUI:CanvasLayer = get_node("../CanvasLayer/Control/GameUI")
 @onready var amountLabel:Label = gameUI.get_node("AmountLabel")
+@onready var timerLabel:Label = gameUI.get_node("TimerLabel")
 @onready var pauseUI:CanvasLayer = get_node("../CanvasLayer/Control/PauseUI")
 @onready var targetingEntity = get_node("../TargetingEntity")
 
-@onready var gameTimer:Timer = get_node("../GameTimer")
+
+@onready var gameTimer:Timer = get_node("GameTimer")
 
 # ゲームのプレイ中であるかどうか
 var game_play:bool = false
@@ -44,10 +46,12 @@ func game_start() -> void:
 	gameUI.visible = true
 	medalAmount = 20
 	bombAmount = 20
+	gameTimer.start(300) # 5分間のタイマーを開始
 
-# アイテム数表示
+# 表示
 func _process(_delta: float) -> void:
 	amountLabel.text = "Medal: %d\nBomd: %d\nMissile: %d" % [medalAmount, bombAmount, missileAmount]
+	timerLabel.text = "残りプレイ時間 %d:%02d" % [int(gameTimer.time_left/60), int(gameTimer.time_left)%60]
 
 func _physics_process(_delta: float) -> void:
 	x+=1
@@ -57,17 +61,9 @@ func _physics_process(_delta: float) -> void:
 		global_position = Vector3 (global_position.x,global_position.y,1.05)
 	target_velocity.z = direction.z * speed
 	velocity = target_velocity
-	move_and_slide()
-	"""
-	# レイを飛ばして衝突位置を取得
-	var space_state = get_world_3d().direct_space_state
-	var ray_length  = Vector3(0, -1000, 0)
-	var result = space_state.intersect_ray(PhysicsRayQueryParameters3D.create(global_position, global_position + ray_length))
-	var pos = result.get("position")
-	# 衝突位置にポインタを移動
-	if pos != null and pos is Vector3:
-		$Sprite3D.global_position.y = pos.y + 0.1
-	"""
+	if not get_tree().paused:
+		move_and_slide()
+
 
 func _input(event: InputEvent) -> void:
 	
@@ -95,9 +91,12 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("select_next_item"):
 		chooseRight()
 		
+	# Pause
 	if event.is_action_pressed("pause"):
 		if game_play:
+			get_tree().paused = !get_tree().paused
 			pauseUI.visible = !pauseUI.visible
+			gameTimer.paused = !gameTimer.paused	
 		"""
 		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 		get_tree().quit()
@@ -106,6 +105,7 @@ func _input(event: InputEvent) -> void:
 func _exit_game() ->void:
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()
+
 # Choose item
 func chooseLeft():
 	if chosenOne == 2:
