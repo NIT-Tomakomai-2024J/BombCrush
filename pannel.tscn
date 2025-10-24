@@ -1,0 +1,22 @@
+[gd_scene load_steps=0 format=3 uid="uid://ddggbimqo331h"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="NumberCounters" type="Node2D" parent="HUD"]
+
+[node name="BombCounter" type="Label" parent="HUD/NumberCounters"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "100"
+
+[node name="CoinCounter" type="Label" parent="HUD/NumberCounters"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "100"
+
+[node name="MissileCounter" type="Label" parent="HUD/NumberCounters"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "100"

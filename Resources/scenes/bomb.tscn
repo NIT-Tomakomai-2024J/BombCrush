@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://3jydhyswfg3s"]
+
+[ext_resource type="Script" uid="uid://ivcl13ap7nrf" path="res://Scripts/ObjBehaviors/bombBehavior.gd" id="1_573fp"]
+[ext_resource type="AudioStream" uid="uid://cjoxxnjjccb4j" path="res://Resources/sounds/se/explosion.wav" id="2_10vvm"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t44cw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j810f"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_573fp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4fn8o"]
+radius = 1.0
+
+[node name="Bomb" type="RigidBody3D"]
+process_mode = 1
+collision_layer = 4
+collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_t44cw")
+script = ExtResource("1_573fp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("SphereShape3D_j810f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("SphereMesh_573fp")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_4fn8o")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.9999999999999996
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_10vvm")
+
+[connection signal="timeout" from="Timer" to="." method="bomb"]

@@ -1,14 +1,33 @@
-[gd_scene load_steps=13 format=3 uid="uid://b53v8a7mhfm0g"]
+[gd_scene load_steps=31 format=3 uid="uid://b53v8a7mhfm0g"]
 
-[ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://planeBehavior.gd" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://q1lhtxpso7je" path="res://pusherBehavior.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://Scripts/ObjBehaviors/planeBehavior.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://bqatdqv3at11a" path="res://Scripts/Setup.gd" id="1_kek77"]
+[ext_resource type="Script" uid="uid://q1lhtxpso7je" path="res://Scripts/ObjBehaviors/pusherBehavior.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dt0ojg5lmad3i" path="res://Resources/scenes/medal.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://3jydhyswfg3s" path="res://Resources/scenes/bomb.tscn" id="3_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://b18bha5qhg8b4" path="res://Resources/images/pos_visualiser.png" id="5_5vw27"]
+[ext_resource type="PackedScene" uid="uid://clajddglxnap8" path="res://Resources/models/blends/table.blend" id="5_7mycd"]
+[ext_resource type="Environment" uid="uid://yllty6bc0sdq" path="res://Resources/sky/QualiaSky.tres" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bbnudumwvyiq6" path="res://Resources/scenes/aim_missile.tscn" id="6_efxa6"]
+[ext_resource type="Script" uid="uid://cnujboeyi0gkl" path="res://Scripts/EndGame.gd" id="7_4c57u"]
+[ext_resource type="PackedScene" uid="uid://c5i4m8llfroqg" path="res://Resources/scenes/missile.tscn" id="7_dg77c"]
+[ext_resource type="Script" uid="uid://d1xs77a544our" path="res://Scripts/ObjBehaviors/targetingEntityBehavior.gd" id="8_kek77"]
+[ext_resource type="AudioStream" uid="uid://c8v4ufesugsh2" path="res://Resources/sounds/music/コンギョ.wav" id="13_ycdy4"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
-resource_name = "ground"
-size = Vector3(0.8, 0.25, 0.8)
+[sub_resource type="BoxShape3D" id="BoxShape3D_272bh"]
+size = Vector3(1.4440918, 1.0070801, 1.954834)
 
-[sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
-size = Vector3(0.8, 0.25, 0.8)
+[sub_resource type="BoxShape3D" id="BoxShape3D_kek77"]
+size = Vector3(2, 2, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4c57u"]
+size = Vector3(2, 2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_efxa6"]
+size = Vector3(0.2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dg77c"]
+size = Vector3(0.2, 2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
 size = Vector3(0.1, 0.1, 0.2)
@@ -16,49 +35,105 @@ size = Vector3(0.1, 0.1, 0.2)
 [sub_resource type="BoxMesh" id="BoxMesh_0xm2m"]
 size = Vector3(0.1, 0.1, 0.2)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
-size = Vector3(1, 1, 0.1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
-size = Vector3(1, 1, 0.1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
-size = Vector3(0.5, 0.05, 0.8)
+size = Vector3(0.56, 0.09, 1.6)
 
 [sub_resource type="BoxMesh" id="BoxMesh_1bvp3"]
-size = Vector3(0.5, 0.05, 0.8)
+size = Vector3(0.54, 0.07, 1.6)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_1bvp3"]
-size = Vector3(0.05, 1, 0.8)
+[sub_resource type="Theme" id="Theme_kek77"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_lquwl"]
-size = Vector3(0.05, 1, 0.8)
+[sub_resource type="Theme" id="Theme_4c57u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
+resource_local_to_scene = true
+size = Vector3(0.2, 1, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_272bh"]
+viewport_path = NodePath("monitor/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5vw27"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_272bh")
+
+[sub_resource type="BoxMesh" id="BoxMesh_7mycd"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_5vw27")
+size = Vector3(0.2, 1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4c57u"]
+size = Vector3(0.001, 0.001, 0.001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kek77"]
+size = Vector3(0.1, 0.1, 0.1)
 
 [node name="Node3D" type="Node3D"]
+process_mode = 3
+script = ExtResource("1_kek77")
 
-[node name="Ground" type="StaticBody3D" parent="."]
+[node name="Building" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Building"]
 collision_layer = 3
+collision_mask = 4
+
+[node name="Table" type="CollisionShape3D" parent="Building/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2830515, -0.21901855, 0.0064697266)
+shape = SubResource("BoxShape3D_272bh")
+
+[node name="Slope" type="CollisionShape3D" parent="Building/Ground"]
+transform = Transform3D(0.9392801, -0.34315157, 0, 0.34315157, 0.9392801, 0, 0, 0, 1, 0.78198224, -0.039227933, 0.0064697266)
+shape = SubResource("BoxShape3D_272bh")
+
+[node name="TableMesh" parent="Building/Ground" instance=ExtResource("5_7mycd")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.725, 0)
+
+[node name="Wall" type="StaticBody3D" parent="Building"]
+collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
-shape = SubResource("BoxShape3D_7dm0k")
+[node name="Left" type="CollisionShape3D" parent="Building/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283, 0.765414, -0.79305744)
+shape = SubResource("BoxShape3D_kek77")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
-mesh = SubResource("BoxMesh_7dm0k")
+[node name="MeshForTest" type="MeshInstance3D" parent="Building/Wall/Left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0028567314)
+visible = false
+mesh = SubResource("BoxMesh_4c57u")
+
+[node name="Right" type="CollisionShape3D" parent="Building/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283, 0.765, 0.795249)
+shape = SubResource("BoxShape3D_kek77")
+
+[node name="MeshForTest" type="MeshInstance3D" parent="Building/Wall/Right"]
+visible = false
+mesh = SubResource("BoxMesh_4c57u")
+
+[node name="Front" type="CollisionShape3D" parent="Building/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.7, 0)
+shape = SubResource("BoxShape3D_efxa6")
+
+[node name="MeshForTest" type="MeshInstance3D" parent="Building/Wall/Front"]
+visible = false
+mesh = SubResource("BoxMesh_dg77c")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0.5, -0.866025, 0, 0.866025, 0.5, 1, 2.18557e-08, -3.78552e-08, -1, 1.10368, 0)
+transform = Transform3D(-4.371139e-08, 0.08715574, -0.9961947, 0, 0.9961947, 0.08715574, 1, 3.8096983e-09, -4.3545054e-08, -0.997, 0.798, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0.580703, -0.814116, 0, 0.814116, 0.580703, 1, 2.53833e-08, -3.55861e-08, 0, 0.945, 0)
+transform = Transform3D(-0.21814325, 0.47015157, 0.8552023, 0, -0.87630665, 0.48175377, 0.97591674, 0.10509133, 0.19116038, 0, 2.411, 0)
 shadow_enabled = true
 
 [node name="Plane" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 0.545, 0)
-collision_mask = 2
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 1, 0)
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_ig7tw")
+medal_scene = ExtResource("2_h2yge")
+bomb_scene = ExtResource("3_1bvp3")
+aim_missile_scene = ExtResource("6_efxa6")
+missile_scene = ExtResource("7_dg77c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane"]
 shape = SubResource("BoxShape3D_ig7tw")
@@ -72,47 +147,246 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/Area3D"]
 shape = SubResource("BoxShape3D_ig7tw")
 
-[node name="TeleportArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
-collision_layer = 2
+[node name="GameTimer" type="Timer" parent="Plane"]
+one_shot = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TeleportArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.465, -0.45)
-shape = SubResource("BoxShape3D_0xm2m")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TeleportArea/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
-mesh = SubResource("BoxMesh_ig7tw")
-skeleton = NodePath("../..")
-
-[node name="Pusher" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.3, 0)
+[node name="Pusher" type="CharacterBody3D" parent="."]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.28, 0)
+collision_mask = 0
 script = ExtResource("2_0xm2m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pusher"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
 shape = SubResource("BoxShape3D_h2yge")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pusher/CollisionShape3D"]
 mesh = SubResource("BoxMesh_1bvp3")
 skeleton = NodePath("../..")
 
-[node name="walls" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.425, 0.5, 0)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="walls"]
-shape = SubResource("BoxShape3D_1bvp3")
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/CollisionShape3D"]
-mesh = SubResource("BoxMesh_lquwl")
+[node name="GameUI" type="CanvasLayer" parent="CanvasLayer/Control"]
+visible = false
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.425, -0.035, 0.45)
-shape = SubResource("BoxShape3D_0xm2m")
+[node name="AmountLabel" type="Label" parent="CanvasLayer/Control/GameUI"]
+anchors_preset = -1
+anchor_left = 0.013888889
+anchor_top = 0.029320987
+anchor_right = 0.26500002
+anchor_bottom = 0.384
+offset_right = -0.5231018
+offset_bottom = 0.27912903
+theme_override_font_sizes/font_size = 40
+text = "Medal:
+Bomb:
+Missile:"
+metadata/_edit_use_anchors_ = true
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="walls/CollisionShape3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
-mesh = SubResource("BoxMesh_ig7tw")
-skeleton = NodePath("../../../TeleportArea")
+[node name="TimerLabel" type="Label" parent="CanvasLayer/Control/GameUI"]
+anchors_preset = -1
+anchor_left = 0.67200005
+anchor_top = 0.026
+anchor_right = 0.98200005
+anchor_bottom = 0.156
+offset_left = -0.14404297
+offset_top = 0.15200043
+offset_right = -0.2640381
+offset_bottom = -0.088005066
+theme_override_font_sizes/font_size = 40
+text = "残りプレイ時間 5:00"
+metadata/_edit_use_anchors_ = true
 
-[connection signal="area_entered" from="TeleportArea" to="Plane" method="_on_teleport_area_3d_area_entered"]
+[node name="PauseUI" type="CanvasLayer" parent="CanvasLayer/Control"]
+visible = false
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/Control/PauseUI"]
+anchors_preset = -1
+anchor_left = 0.41300002
+anchor_top = 0.79300004
+anchor_right = 0.63000005
+anchor_bottom = 0.96500003
+offset_left = 0.2239685
+offset_top = 0.13598633
+offset_right = 0.2399292
+offset_bottom = -0.32000732
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kek77")
+theme_override_font_sizes/font_size = 75
+text = "EXIT"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/Control/PauseUI"]
+anchors_preset = -1
+anchor_left = 0.321
+anchor_top = 0.79300004
+anchor_right = 0.407
+anchor_bottom = 0.96500003
+offset_left = 0.2079773
+offset_top = 0.13598633
+offset_right = 0.13598633
+offset_bottom = -0.32000732
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kek77")
+theme_override_font_sizes/font_size = 75
+text = "Re"
+
+[node name="Result" type="CanvasLayer" parent="CanvasLayer/Control"]
+visible = false
+script = ExtResource("7_4c57u")
+
+[node name="BackGround" type="ColorRect" parent="CanvasLayer/Control/Result"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/Control/Result"]
+anchors_preset = -1
+anchor_left = 0.564
+anchor_top = 0.79300004
+anchor_right = 0.70500004
+anchor_bottom = 0.96800005
+offset_left = 0.27197266
+offset_top = 2.1359863
+offset_right = -0.16003418
+offset_bottom = -0.2640381
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kek77")
+theme_override_font_sizes/font_size = 75
+text = "EXIT"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/Control/Result"]
+anchors_preset = -1
+anchor_left = 0.321
+anchor_top = 0.79300004
+anchor_right = 0.55600005
+anchor_bottom = 0.96500003
+offset_left = 0.2079773
+offset_top = 0.13598633
+offset_right = -0.51208496
+offset_bottom = -0.32000732
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kek77")
+theme_override_font_sizes/font_size = 75
+text = "Restart"
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/Control/Result"]
+anchors_preset = -1
+anchor_left = 0.31800002
+anchor_top = 0.164
+anchor_right = 0.71400005
+anchor_bottom = 0.795
+offset_left = -0.33602905
+offset_top = -0.27200317
+offset_right = 0.47192383
+offset_bottom = -0.16003418
+theme_override_font_sizes/font_size = 40
+text = "投下したメダルの数:100
+投下したボムの数:100
+発射したミサイルの数;10
+落としたメダルの数:10
+ジャックポットに入った回数:1
+最終メダル数:20
+"
+
+[node name="TitleScreen" type="CanvasLayer" parent="CanvasLayer/Control"]
+visible = false
+
+[node name="BackGround" type="ColorRect" parent="CanvasLayer/Control/TitleScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Control/TitleScreen"]
+anchors_preset = -1
+anchor_left = 0.37
+anchor_top = 0.79300004
+anchor_right = 0.63000005
+anchor_bottom = 0.9480001
+offset_left = -0.23999023
+offset_top = 0.13598633
+offset_right = 0.2399292
+offset_bottom = -0.30407715
+pivot_offset = Vector2(150, 50)
+theme = SubResource("Theme_4c57u")
+theme_override_font_sizes/font_size = 60
+text = "スタート"
+
+[node name="monitor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1.05, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="monitor"]
+shape = SubResource("BoxShape3D_lquwl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="monitor/CollisionShape3D"]
+mesh = SubResource("BoxMesh_7mycd")
+
+[node name="SubViewport" type="SubViewport" parent="monitor"]
+
+[node name="TrialVersionMessages" type="Node3D" parent="monitor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115, 0, 0)
+
+[node name="Upper" type="Label3D" parent="monitor/TrialVersionMessages"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0.2, 0)
+modulate = Color(1, 0, 0, 1)
+outline_modulate = Color(1, 1, 0, 1)
+text = "終わりなき革命モード
+"
+
+[node name="Lower" type="Label3D" parent="monitor/TrialVersionMessages"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+modulate = Color(1, 0, 0, 1)
+outline_modulate = Color(1, 1, 0, 1)
+text = "(つまりJACKPOT無しの体験版モード)
+※製品版はまだありません"
+font_size = 16
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("6_7mycd")
+
+[node name="TargetingEntity" type="CharacterBody3D" parent="."]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57675385, 0)
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("8_kek77")
+
+[node name="Aim" type="Sprite3D" parent="TargetingEntity"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.08, 0.32517105, 0)
+pixel_size = 0.0007
+texture = ExtResource("5_5vw27")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetingEntity"]
+shape = SubResource("BoxShape3D_4c57u")
+
+[node name="MeshForTest" type="MeshInstance3D" parent="TargetingEntity"]
+visible = false
+mesh = SubResource("BoxMesh_kek77")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_ycdy4")
+volume_db = -6.0
+autoplay = true
+
+[connection signal="timeout" from="Plane/GameTimer" to="." method="_on_end_game"]
+[connection signal="pressed" from="CanvasLayer/Control/PauseUI/ExitButton" to="Plane" method="_exit_game"]
+[connection signal="pressed" from="CanvasLayer/Control/PauseUI/RestartButton" to="CanvasLayer/Control/Result" method="restart_in_pause"]
+[connection signal="pressed" from="CanvasLayer/Control/Result/ExitButton" to="Plane" method="_exit_game"]
+[connection signal="pressed" from="CanvasLayer/Control/Result/RestartButton" to="CanvasLayer/Control/Result" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/TitleScreen/StartButton" to="." method="_on_start_button_pressed"]
