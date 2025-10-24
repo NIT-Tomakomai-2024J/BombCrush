@@ -35,8 +35,8 @@ func _physics_process(_delta: float) -> void:
 	x+=1
 	var direction = Vector3.ZERO
 	direction.z = -1
-	if position.z <= -0.505:
-		global_position = Vector3 (global_position.x,global_position.y,0.45)
+	if position.z <= -1.105:
+		global_position = Vector3 (global_position.x,global_position.y,1.05)
 	target_velocity.z = direction.z * speed
 	velocity = target_velocity
 	move_and_slide()
@@ -52,6 +52,7 @@ func _physics_process(_delta: float) -> void:
 	"""
 
 func _input(event: InputEvent) -> void:
+	
 	if event.is_action_pressed("drop"):
 		object = null
 		print("Dropping...")
@@ -69,7 +70,7 @@ func _input(event: InputEvent) -> void:
 			print("No items left to drop!")
 		if object != null:
 			get_node("..").add_child(object)
-			object.global_position = global_position
+			object.global_position = Vector3(targetingEntity.global_position.x, global_position.y, targetingEntity.global_position.z)
 
 	if event.is_action_pressed("select_previous_item"):
 		chooseLeft()
