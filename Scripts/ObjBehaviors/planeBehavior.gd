@@ -20,6 +20,7 @@ var jackpotGauge = 0
 var chosenOne = 0
 
 @onready var amountLabel : Label = get_node("../CanvasLayer/Control/AmountLabel")
+@onready var ui : Control = get_node("../CanvasLayer/Control/PauseUI")
 @onready var targetingEntity = get_node("../TargetingEntity")
 
 """
@@ -77,10 +78,16 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("select_next_item"):
 		chooseRight()
 		
-	if event.is_action_pressed("exit"):
+	if event.is_action_pressed("pause"):
+		ui.visible = !ui.visible
+		"""
 		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 		get_tree().quit()
+		"""
 
+func _exit_game() ->void:
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	get_tree().quit()
 # Choose item
 func chooseLeft():
 	if chosenOne == 2:

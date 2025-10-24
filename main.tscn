@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b53v8a7mhfm0g"]
+[gd_scene load_steps=27 format=3 uid="uid://b53v8a7mhfm0g"]
 
 [ext_resource type="Script" uid="uid://b240ywyhm1pvq" path="res://Scripts/fieldSetup.gd" id="1_272bh"]
 [ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://Scripts/ObjBehaviors/planeBehavior.gd" id="1_ig7tw"]
@@ -39,6 +39,8 @@ size = Vector3(0.54, 0.07, 1.6)
 
 [sub_resource type="Theme" id="Theme_h2yge"]
 default_font_size = 40
+
+[sub_resource type="Theme" id="Theme_kek77"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
 resource_local_to_scene = true
@@ -173,6 +175,32 @@ Bomb:
 Missile:"
 metadata/_edit_use_anchors_ = true
 
+[node name="PauseUI" type="Control" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/Control/PauseUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.41300002
+anchor_top = 0.79300004
+anchor_right = 0.63000005
+anchor_bottom = 0.96500003
+offset_left = 0.2239685
+offset_top = 0.13598633
+offset_right = 0.2399292
+offset_bottom = -0.32000732
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kek77")
+theme_override_font_sizes/font_size = 75
+text = "EXIT"
+
 [node name="monitor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 1.05, 0)
 
@@ -203,3 +231,5 @@ shape = SubResource("BoxShape3D_4c57u")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TargetingEntity"]
 mesh = SubResource("BoxMesh_kek77")
+
+[connection signal="pressed" from="CanvasLayer/Control/PauseUI/ExitButton" to="Plane" method="_exit_game"]
