@@ -82,7 +82,7 @@ func showResult() -> void:
 
 func _process(_delta: float) -> void:
 	# 表示
-	amountLabel.text = "Medal: %d\nBomb: %d" % [medalAmount, bombAmount]
+	amountLabel.text = "Medal: %d\nBomb: メダル10枚" % medalAmount
 	timerLabel.text = "残りプレイ時間 %d:%02d" % [int(gameTimer.time_left/60), int(gameTimer.time_left)%60]
 	# メダル数を一定以上に維持
 	if existingMedalsAmount < 300:
