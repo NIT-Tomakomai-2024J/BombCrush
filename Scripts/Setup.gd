@@ -27,16 +27,18 @@ func start_game() -> void:
 	game_start.emit()
 
 func arrangement() -> void:
-	for i in range(0, 297):
+	for i in range(0, 300):
 		var rand_pos = Vector3(randf_range(-0.5, 0.8), GROUND, randf_range(-0.7, 0.7))
 		var medal = preload("res://Resources/scenes/medal.tscn").instantiate()
 		medal.position = rand_pos
 		self.add_child(medal)
+	"""
 	for i in range(0, 3):
 		var rand_pos = Vector3(randf_range(0.4, 0.8), GROUND, randf_range(-0.7, 0.7))
 		var ball = preload("res://Resources/scenes/ball.tscn").instantiate()
 		ball.position = rand_pos
 		self.add_child(ball)
+	"""
 
 
 func _on_start_button_pressed() -> void:

@@ -80,10 +80,17 @@ func showResult() -> void:
 	game_play = false
 	resultLabel.text = "投入されたメダルの数:%d\n投下したボムの数:%d\n落としたメダルの数:%d\nジャックポットに入った回数:%d\n最終メダル数:%d" % [numberOfCoinsInserted, numberOfBombsDropped, medalDropCount, jackpotCount, lastMedalCount]
 
-# 表示
 func _process(_delta: float) -> void:
+	# 表示
 	amountLabel.text = "Medal: %d\nBomb: %d" % [medalAmount, bombAmount]
 	timerLabel.text = "残りプレイ時間 %d:%02d" % [int(gameTimer.time_left/60), int(gameTimer.time_left)%60]
+	# メダル数を一定以上に維持
+	if existingMedalsAmount < 300:
+		var rand_pos = Vector3(randf_range(0.8, 1.0), 1, randf_range(-0.7, 0.7))
+		var medal = medal_scene.instantiate()
+		medal.position = rand_pos
+		get_node("..").add_child(medal)
+
 
 func _physics_process(_delta: float) -> void:
 	x+=1
@@ -106,9 +113,9 @@ func _input(event: InputEvent) -> void:
 				object = medal_scene.instantiate()
 				medalAmount -= 1
 				numberOfCoinsInserted += 1
-			elif bombAmount >= 1 && chosenOne == true:
+			elif medalAmount >= 10 && chosenOne == true:
 				object = bomb_scene.instantiate()
-				bombAmount -= 1
+				medalAmount -= 10
 				numberOfBombsDropped += 1
 			else:
 				print("No items left to drop!")
