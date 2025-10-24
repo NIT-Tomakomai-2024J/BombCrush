@@ -66,6 +66,7 @@ func game_start() -> void:
 	game_play = true
 	gameUI.visible = true
 	pauseUI.visible = false
+	gameTimer.paused = false
 	medalAmount = 20
 	bombAmount = 20
 	medalDropCount = 0

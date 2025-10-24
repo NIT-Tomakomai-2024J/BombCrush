@@ -1,4 +1,4 @@
-extends "res://Scripts/AbstractFallingObject.gd"
+extends AbstractFallingObject
 
 func _ready() -> void:
 	plane.existingMedalsAmount += 1
