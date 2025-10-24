@@ -306,6 +306,24 @@ mesh = SubResource("BoxMesh_7mycd")
 
 [node name="SubViewport" type="SubViewport" parent="monitor"]
 
+[node name="TrialVersionMessages" type="Node3D" parent="monitor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115, 0, 0)
+
+[node name="Upper" type="Label3D" parent="monitor/TrialVersionMessages"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0.2, 0)
+modulate = Color(1, 0, 0, 1)
+outline_modulate = Color(1, 1, 0, 1)
+text = "終わりなき革命モード
+"
+
+[node name="Lower" type="Label3D" parent="monitor/TrialVersionMessages"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+modulate = Color(1, 0, 0, 1)
+outline_modulate = Color(1, 1, 0, 1)
+text = "(つまりJACKPOT無しの体験版モード)
+※製品版はまだありません"
+font_size = 16
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("6_7mycd")
 
