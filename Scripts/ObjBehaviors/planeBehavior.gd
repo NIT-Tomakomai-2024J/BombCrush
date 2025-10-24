@@ -19,6 +19,8 @@ var object = null
 var medalAmount = 0
 var bombAmount = 0
 
+var existingMedalsAmount = 0
+
 var medalDropCount = 0
 var lastMedalCount = 0
 var numberOfCoinsInserted = 0
@@ -26,13 +28,8 @@ var numberOfBombsDropped = 0
 var jackpotCount = 0
 
 var jackpotGauge = 0
-# ['Medal', 'Bomb', 'Missile']
 var chosenOne:bool = false
-"""
-Medal:
-Bomb:
-Missile:
-"""
+
 
 # シグナル
 @onready var setup:Node3D= get_node("/root/Node3D")
@@ -117,6 +114,7 @@ func _input(event: InputEvent) -> void:
 				print("No items left to drop!")
 			if object != null:
 				get_node("..").add_child(object)
+				object.global_position = Vector3(targetingEntity.global_position.x, global_position.y, targetingEntity.global_position.z)
 	
 	if event.is_action_pressed("select_previous_item") or event.is_action_pressed("select_next_item"):
 		chosenOne = !chosenOne
