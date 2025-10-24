@@ -3,7 +3,7 @@ extends CharacterBody3D
 var target_velocity = Vector3.ZERO
 var x = 0
 var time = 0
-func _physics_process(delta):
+func _physics_process(_delta):
 	time += 1
 	x = time*0.01*PI
 	#目標のglobal_position = 0.3+0.15*cos(x)

@@ -2,7 +2,15 @@
 
 var target_velocity = Vector3.ZERO
 var force = Vector3.ZERO
-	
+@onready var setup:Node3D= get_node("/root/Node3D")
+
+func _ready() -> void:
+	# シグナル
+	setup.game_end.connect(free)
+
+func free() -> void:
+	queue_free()
+
 func bombed(bombPosition: Vector3) -> void:
 	force = global_position - bombPosition
 	force = force.normalized()
@@ -13,3 +21,4 @@ func bombed(bombPosition: Vector3) -> void:
 func _process(_delta: float) -> void:
 	if global_position.y < 0 and get_parent() != null:
 		_falling()
+

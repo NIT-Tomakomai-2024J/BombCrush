@@ -169,6 +169,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="GameUI" type="CanvasLayer" parent="CanvasLayer/Control"]
+visible = false
 
 [node name="AmountLabel" type="Label" parent="CanvasLayer/Control/GameUI"]
 anchors_preset = -1
@@ -217,9 +218,59 @@ theme = SubResource("Theme_kek77")
 theme_override_font_sizes/font_size = 75
 text = "EXIT"
 
-[node name="EndGameUI" type="CanvasLayer" parent="CanvasLayer/Control"]
-visible = false
+[node name="Result" type="CanvasLayer" parent="CanvasLayer/Control"]
 script = ExtResource("7_4c57u")
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/Control/Result"]
+anchors_preset = -1
+anchor_left = 0.564
+anchor_top = 0.79300004
+anchor_right = 0.70500004
+anchor_bottom = 0.96800005
+offset_left = 0.27197266
+offset_top = 2.1359863
+offset_right = -0.16003418
+offset_bottom = -0.2640381
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kek77")
+theme_override_font_sizes/font_size = 75
+text = "EXIT"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/Control/Result"]
+anchors_preset = -1
+anchor_left = 0.321
+anchor_top = 0.79300004
+anchor_right = 0.55600005
+anchor_bottom = 0.96500003
+offset_left = 0.2079773
+offset_top = 0.13598633
+offset_right = -0.51208496
+offset_bottom = -0.32000732
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kek77")
+theme_override_font_sizes/font_size = 75
+text = "Restart"
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/Control/Result"]
+anchors_preset = -1
+anchor_left = 0.31800002
+anchor_top = 0.164
+anchor_right = 0.71400005
+anchor_bottom = 0.795
+offset_left = -0.33602905
+offset_top = -0.27200317
+offset_right = 0.47192383
+offset_bottom = -0.16003418
+theme_override_font_sizes/font_size = 40
+text = "投下したメダルの数:100
+投下したボムの数:100
+発射したミサイルの数;10
+落としたメダルの数:10
+ジャックポットに入った回数:1
+最終メダル数:20
+"
 
 [node name="TitleScreen" type="CanvasLayer" parent="CanvasLayer/Control"]
 visible = false
@@ -271,6 +322,8 @@ shape = SubResource("BoxShape3D_4c57u")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TargetingEntity"]
 mesh = SubResource("BoxMesh_kek77")
 
-[connection signal="timeout" from="Plane/GameTimer" to="CanvasLayer/Control/EndGameUI" method="end_game"]
+[connection signal="timeout" from="Plane/GameTimer" to="." method="_on_end_game"]
 [connection signal="pressed" from="CanvasLayer/Control/PauseUI/ExitButton" to="Plane" method="_exit_game"]
+[connection signal="pressed" from="CanvasLayer/Control/Result/ExitButton" to="Plane" method="_exit_game"]
+[connection signal="pressed" from="CanvasLayer/Control/Result/RestartButton" to="CanvasLayer/Control/Result" method="_on_restart_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/TitleScreen/StartButton" to="." method="_on_start_button_pressed"]

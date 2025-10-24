@@ -2,6 +2,7 @@ extends Node3D
 
 signal initialization
 signal game_start
+signal game_end
 
 const GROUND:float = 1
 var is_initialized:bool = false
@@ -36,3 +37,6 @@ func _on_start_button_pressed() -> void:
 	if not is_initialized:
 		await initialization
 	start_game()
+
+func _on_end_game() -> void:
+	game_end.emit()

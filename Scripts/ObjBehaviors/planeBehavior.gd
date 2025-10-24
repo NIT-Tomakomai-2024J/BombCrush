@@ -10,10 +10,19 @@ extends CharacterBody3D
 var target_velocity = Vector3.ZERO
 var x = 0
 var object = null
+
+
 # Amounts
 var medalAmount = 0
 var bombAmount = 0
 var missileAmount = 0
+
+var medalDropCount = 0
+var lastMedalCount = 0
+var numberOfCoinsInserted = 0
+var numberOfBombsDropped = 0
+var numberOfMissilesFired = 0
+var jackpotCount = 0
 
 var jackpotGauge = 0
 # ['Medal', 'Bomb', 'Missile']
@@ -24,12 +33,23 @@ Bomb:
 Missile:
 """
 
-@onready var gameUI:CanvasLayer = get_node("../CanvasLayer/Control/GameUI")
+# シグナル
+@onready var setup:Node3D= get_node("/root/Node3D")
+#setup.game_end.connect(showResult)
+
+# 照準
+@onready var targetingEntity = get_node("../TargetingEntity")
+# UI nodes
+@onready var controlUI:Control = get_node("../CanvasLayer/Control")
+# ゲーム中に表示するUI
+@onready var gameUI:CanvasLayer = controlUI.get_node("GameUI")
 @onready var amountLabel:Label = gameUI.get_node("AmountLabel")
 @onready var timerLabel:Label = gameUI.get_node("TimerLabel")
-@onready var pauseUI:CanvasLayer = get_node("../CanvasLayer/Control/PauseUI")
-@onready var targetingEntity = get_node("../TargetingEntity")
-
+# ポーズ画面
+@onready var pauseUI:CanvasLayer = controlUI.get_node("PauseUI")
+# リザルト画面
+@onready var result:CanvasLayer = controlUI.get_node("Result")
+@onready var resultLabel:Label = result.get_node("ResultLabel")
 
 @onready var gameTimer:Timer = get_node("GameTimer")
 
@@ -39,18 +59,34 @@ var game_play:bool = false
 func _ready() -> void:
 	gameUI.visible = false
 	pauseUI.visible = false
-	get_node("../").game_start.connect(game_start)
+	result.visible = false
+	setup.game_start.connect(game_start)
+	setup.game_end.connect(showResult)
 
 func game_start() -> void:
+	# 初期化
 	game_play = true
 	gameUI.visible = true
 	medalAmount = 20
 	bombAmount = 20
-	gameTimer.start(300) # 5分間のタイマーを開始
+	missileAmount = 5
+	medalDropCount = 0
+	numberOfBombsDropped = 0
+	numberOfCoinsInserted = 0
+	numberOfMissilesFired = 0
+	jackpotCount = 0
+	jackpotGauge = 0
+	gameTimer.start(5) # 5分間のタイマーを開始
+
+# リザルト表示
+func showResult() -> void:
+	lastMedalCount = medalAmount
+	game_play = false
+	resultLabel.text = "投入されたメダルの数:%d\n投下したボムの数:%d\n発射したミサイルの数:%d\n落としたメダルの数:%d\nジャックポットに入った回数:%d\n最終メダル数:%d" % [numberOfCoinsInserted, numberOfBombsDropped, numberOfMissilesFired, medalDropCount, jackpotCount, lastMedalCount]
 
 # 表示
 func _process(_delta: float) -> void:
-	amountLabel.text = "Medal: %d\nBomd: %d\nMissile: %d" % [medalAmount, bombAmount, missileAmount]
+	amountLabel.text = "Medal: %d\nBomb: %d\nMissile: %d" % [medalAmount, bombAmount, missileAmount]
 	timerLabel.text = "残りプレイ時間 %d:%02d" % [int(gameTimer.time_left/60), int(gameTimer.time_left)%60]
 
 func _physics_process(_delta: float) -> void:
@@ -61,30 +97,33 @@ func _physics_process(_delta: float) -> void:
 		global_position = Vector3 (global_position.x,global_position.y,1.05)
 	target_velocity.z = direction.z * speed
 	velocity = target_velocity
-	if not get_tree().paused:
-		move_and_slide()
+	move_and_slide()
 
 
 func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("drop"):
-		object = null
-		print("Dropping...")
-		if medalAmount >= 1 && chosenOne == 0:
-			object = medal_scene.instantiate()
-			medalAmount -= 1
-		elif bombAmount >= 1 && chosenOne == 1:
-			object = bomb_scene.instantiate()
-			bombAmount -= 1
-		elif chosenOne == 2:
-			#object = missile_scene.instantiate()
-			#missileAmount -= 1
-			pass
-		else:
-			print("No items left to drop!")
-		if object != null:
-			get_node("..").add_child(object)
-			object.global_position = Vector3(targetingEntity.global_position.x, global_position.y, targetingEntity.global_position.z)
+		if game_play == true:
+			object = null
+			print("Dropping...")
+			if medalAmount >= 1 && chosenOne == 0:
+				object = medal_scene.instantiate()
+				medalAmount -= 1
+				numberOfCoinsInserted += 1
+			elif bombAmount >= 1 && chosenOne == 1:
+				object = bomb_scene.instantiate()
+				bombAmount -= 1
+				numberOfBombsDropped += 1
+			elif chosenOne == 2:
+				#object = missile_scene.instantiate()
+				missileAmount -= 1
+				numberOfMissilesFired += 1
+				pass
+			else:
+				print("No items left to drop!")
+			if object != null:
+				get_node("..").add_child(object)
+				object.global_position = Vector3(targetingEntity.global_position.x, global_position.y, targetingEntity.global_position.z)
 
 	if event.is_action_pressed("select_previous_item"):
 		chooseLeft()
