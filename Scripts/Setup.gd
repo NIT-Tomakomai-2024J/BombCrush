@@ -32,6 +32,13 @@ func arrangement() -> void:
 		var medal = preload("res://Resources/scenes/medal.tscn").instantiate()
 		medal.position = rand_pos
 		self.add_child(medal)
+	"""
+	for i in range(0, 3):
+		var rand_pos = Vector3(randf_range(-3.4, 0.4), GROUND, randf_range(-0.7, 0.7))
+		var ball = preload("res://Resources/scenes/ball.tscn").instantiate()
+		ball.position = rand_pos
+		self.add_child(ball)
+	"""
 
 func _on_start_button_pressed() -> void:
 	if not is_initialized:

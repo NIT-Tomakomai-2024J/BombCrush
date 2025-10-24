@@ -2,6 +2,9 @@ extends CharacterBody3D
 
 @export var medal_scene: PackedScene
 @export var bomb_scene: PackedScene
+@export var aim_missile_scene: PackedScene
+@export var missile_scene: PackedScene
+
 
 # How fast the player moves in meters per second.
 @export var speed = 0.3
@@ -76,7 +79,7 @@ func game_start() -> void:
 	numberOfMissilesFired = 0
 	jackpotCount = 0
 	jackpotGauge = 0
-	gameTimer.start(5) # 5分間のタイマーを開始
+	gameTimer.start(300) # 5分間のタイマーを開始
 
 # リザルト表示
 func showResult() -> void:
@@ -114,17 +117,24 @@ func _input(event: InputEvent) -> void:
 				object = bomb_scene.instantiate()
 				bombAmount -= 1
 				numberOfBombsDropped += 1
-			elif chosenOne == 2:
-				#object = missile_scene.instantiate()
+			
+			elif missileAmount >= 1 && chosenOne == 2:
+				object = aim_missile_scene.instantiate()
 				missileAmount -= 1
 				numberOfMissilesFired += 1
-				pass
 			else:
 				print("No items left to drop!")
 			if object != null:
 				get_node("..").add_child(object)
-				object.global_position = Vector3(targetingEntity.global_position.x, global_position.y, targetingEntity.global_position.z)
-
+				if chosenOne != 2:
+					object.global_position = Vector3(targetingEntity.global_position.x, global_position.y, targetingEntity.global_position.z)
+				else:
+					object.global_position = targetingEntity.get_node("Aim").global_position
+				var missile = missile_scene.instantiate()
+				get_node("/root/Node3D").add_child(missile)
+				missile.global_position = Vector3(randf_range(-3.4, 0.4), 5, randf_range(-0.7, 0.7))
+				missile.target_position = object.global_position
+	
 	if event.is_action_pressed("select_previous_item"):
 		chooseLeft()
 	elif event.is_action_pressed("select_next_item"):

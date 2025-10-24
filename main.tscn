@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b53v8a7mhfm0g"]
+[gd_scene load_steps=30 format=3 uid="uid://b53v8a7mhfm0g"]
 
 [ext_resource type="Script" uid="uid://vo6sbvar0kto" path="res://Scripts/ObjBehaviors/planeBehavior.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://bqatdqv3at11a" path="res://Scripts/Setup.gd" id="1_kek77"]
@@ -8,7 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://b18bha5qhg8b4" path="res://Resources/images/pos_visualiser.png" id="5_5vw27"]
 [ext_resource type="PackedScene" uid="uid://clajddglxnap8" path="res://Resources/models/blends/table.blend" id="5_7mycd"]
 [ext_resource type="Environment" uid="uid://yllty6bc0sdq" path="res://Resources/sky/QualiaSky.tres" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bbnudumwvyiq6" path="res://Resources/scenes/aim_missile.tscn" id="6_efxa6"]
 [ext_resource type="Script" uid="uid://cnujboeyi0gkl" path="res://Scripts/EndGame.gd" id="7_4c57u"]
+[ext_resource type="PackedScene" uid="uid://c5i4m8llfroqg" path="res://Resources/scenes/missile.tscn" id="7_dg77c"]
 [ext_resource type="Script" uid="uid://d1xs77a544our" path="res://Scripts/ObjBehaviors/targetingEntityBehavior.gd" id="8_kek77"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_272bh"]
@@ -93,7 +95,7 @@ collision_mask = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283, 0.765414, -0.79305744)
 shape = SubResource("BoxShape3D_kek77")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Wall/Left"]
+[node name="MeshForTest" type="MeshInstance3D" parent="Building/Wall/Left"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0028567314)
 visible = false
 mesh = SubResource("BoxMesh_4c57u")
@@ -102,7 +104,7 @@ mesh = SubResource("BoxMesh_4c57u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283, 0.765, 0.795249)
 shape = SubResource("BoxShape3D_kek77")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Wall/Right"]
+[node name="MeshForTest" type="MeshInstance3D" parent="Building/Wall/Right"]
 visible = false
 mesh = SubResource("BoxMesh_4c57u")
 
@@ -110,7 +112,7 @@ mesh = SubResource("BoxMesh_4c57u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.7, 0)
 shape = SubResource("BoxShape3D_efxa6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Building/Wall/Front"]
+[node name="MeshForTest" type="MeshInstance3D" parent="Building/Wall/Front"]
 visible = false
 mesh = SubResource("BoxMesh_dg77c")
 
@@ -129,6 +131,8 @@ collision_mask = 0
 script = ExtResource("1_ig7tw")
 medal_scene = ExtResource("2_h2yge")
 bomb_scene = ExtResource("3_1bvp3")
+aim_missile_scene = ExtResource("6_efxa6")
+missile_scene = ExtResource("7_dg77c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane"]
 shape = SubResource("BoxShape3D_ig7tw")
@@ -313,13 +317,14 @@ script = ExtResource("8_kek77")
 
 [node name="Aim" type="Sprite3D" parent="TargetingEntity"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.08, 0.32517105, 0)
-pixel_size = 0.001
+pixel_size = 0.0007
 texture = ExtResource("5_5vw27")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TargetingEntity"]
 shape = SubResource("BoxShape3D_4c57u")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TargetingEntity"]
+[node name="MeshForTest" type="MeshInstance3D" parent="TargetingEntity"]
+visible = false
 mesh = SubResource("BoxMesh_kek77")
 
 [connection signal="timeout" from="Plane/GameTimer" to="." method="_on_end_game"]
