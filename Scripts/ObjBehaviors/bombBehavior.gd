@@ -1,4 +1,4 @@
-extends AbstractFallingObject
+extends "res://Scripts/AbstractFallingObject.gd"
 @onready var explosion_area = $Area3D
 
 func _falling():

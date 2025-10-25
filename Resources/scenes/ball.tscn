@@ -9,7 +9,7 @@ rough = true
 radius = 0.1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htd8v"]
-albedo_color = Color(2.6380582, 5.265831e-05, 1.1573254e-05, 1)
+albedo_color = Color(2.63806, 5.26583e-05, 1.15733e-05, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_7bvlq"]
 material = SubResource("StandardMaterial3D_htd8v")

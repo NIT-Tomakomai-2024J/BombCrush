@@ -74,7 +74,7 @@ func game_start() -> void:
 	numberOfCoinsInserted = 0
 	jackpotCount = 0
 	jackpotGauge = 0
-	gameTimer.start(150) # 2:30分間のタイマーを開始
+	gameTimer.start(60) # 1分間のタイマーを開始
 
 # リザルト表示
 func showResult() -> void:

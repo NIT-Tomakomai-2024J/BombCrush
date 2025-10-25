@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c5i4m8llfroqg" path="res://Resources/scenes/missile.tscn" id="3_uj5ml"]
 
 [node name="AimMissile" type="Sprite3D"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 pixel_size = 0.0005
 texture = ExtResource("1_2p0f5")
 script = ExtResource("2_uj5ml")

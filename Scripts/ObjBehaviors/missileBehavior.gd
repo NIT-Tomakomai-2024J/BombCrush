@@ -26,3 +26,6 @@ func bomb():
 		if body is AbstractFallingObject:
 			body.bombed(global_position)
 	queue_free()
+
+func _falling():
+	queue_free()

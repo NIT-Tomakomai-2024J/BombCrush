@@ -15,7 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://c8v4ufesugsh2" path="res://Resources/sounds/music/コンギョ.wav" id="13_ycdy4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_272bh"]
-size = Vector3(1.4440918, 1.0070801, 1.954834)
+size = Vector3(1.44409, 1.00708, 1.95483)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kek77"]
 size = Vector3(2, 2, 0.2)
@@ -78,26 +78,26 @@ collision_layer = 3
 collision_mask = 4
 
 [node name="Table" type="CollisionShape3D" parent="Building/Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2830515, -0.21901855, 0.0064697266)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283051, -0.219019, 0.00646973)
 shape = SubResource("BoxShape3D_272bh")
 
 [node name="Slope" type="CollisionShape3D" parent="Building/Ground"]
-transform = Transform3D(0.9392801, -0.34315157, 0, 0.34315157, 0.9392801, 0, 0, 0, 1, 0.78198224, -0.039227933, 0.0064697266)
+transform = Transform3D(0.93928, -0.343152, 0, 0.343152, 0.93928, 0, 0, 0, 1, 0.781982, -0.0392279, 0.00646973)
 shape = SubResource("BoxShape3D_272bh")
 
 [node name="TableMesh" parent="Building/Ground" instance=ExtResource("5_7mycd")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.725, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.725, 0)
 
 [node name="Wall" type="StaticBody3D" parent="Building"]
 collision_layer = 2
 collision_mask = 0
 
 [node name="Left" type="CollisionShape3D" parent="Building/Wall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283, 0.765414, -0.79305744)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283, 0.765414, -0.793057)
 shape = SubResource("BoxShape3D_kek77")
 
 [node name="MeshForTest" type="MeshInstance3D" parent="Building/Wall/Left"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0028567314)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00285673)
 visible = false
 mesh = SubResource("BoxMesh_4c57u")
 
@@ -118,10 +118,10 @@ visible = false
 mesh = SubResource("BoxMesh_dg77c")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0.08715574, -0.9961947, 0, 0.9961947, 0.08715574, 1, 3.8096983e-09, -4.3545054e-08, -0.997, 0.798, 0)
+transform = Transform3D(-4.37114e-08, 0.0871557, -0.996195, 0, 0.996195, 0.0871557, 1, 3.8097e-09, -4.35451e-08, -0.997, 0.798, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.21814325, 0.47015157, 0.8552023, 0, -0.87630665, 0.48175377, 0.97591674, 0.10509133, 0.19116038, 0, 2.411, 0)
+transform = Transform3D(-0.218143, 0.470152, 0.855202, 0, -0.876307, 0.481754, 0.975917, 0.105091, 0.19116, 0, 2.411, 0)
 shadow_enabled = true
 
 [node name="Plane" type="CharacterBody3D" parent="."]
@@ -178,12 +178,12 @@ visible = false
 
 [node name="AmountLabel" type="Label" parent="CanvasLayer/Control/GameUI"]
 anchors_preset = -1
-anchor_left = 0.013888889
-anchor_top = 0.029320987
-anchor_right = 0.26500002
+anchor_left = 0.0138889
+anchor_top = 0.029321
+anchor_right = 0.265
 anchor_bottom = 0.384
-offset_right = -0.5231018
-offset_bottom = 0.27912903
+offset_right = -0.523102
+offset_bottom = 0.279129
 theme_override_font_sizes/font_size = 40
 text = "Medal:
 Bomb:
@@ -192,14 +192,14 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TimerLabel" type="Label" parent="CanvasLayer/Control/GameUI"]
 anchors_preset = -1
-anchor_left = 0.67200005
+anchor_left = 0.672
 anchor_top = 0.026
-anchor_right = 0.98200005
+anchor_right = 0.982
 anchor_bottom = 0.156
-offset_left = -0.14404297
-offset_top = 0.15200043
-offset_right = -0.2640381
-offset_bottom = -0.088005066
+offset_left = -0.144043
+offset_top = 0.152
+offset_right = -0.264038
+offset_bottom = -0.0880051
 theme_override_font_sizes/font_size = 40
 text = "残りプレイ時間 5:00"
 metadata/_edit_use_anchors_ = true
@@ -212,18 +212,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+color = Color(0.303233, 0.303233, 0.303233, 1)
 
 [node name="ExitButton" type="Button" parent="CanvasLayer/Control/PauseUI"]
 anchors_preset = -1
-anchor_left = 0.41300002
-anchor_top = 0.79300004
-anchor_right = 0.63000005
-anchor_bottom = 0.96500003
-offset_left = 0.2239685
-offset_top = 0.13598633
-offset_right = 0.2399292
-offset_bottom = -0.32000732
+anchor_left = 0.413
+anchor_top = 0.793
+anchor_right = 0.63
+anchor_bottom = 0.965
+offset_left = 0.223969
+offset_top = 0.135986
+offset_right = 0.239929
+offset_bottom = -0.320007
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_kek77")
@@ -233,13 +233,13 @@ text = "EXIT"
 [node name="RestartButton" type="Button" parent="CanvasLayer/Control/PauseUI"]
 anchors_preset = -1
 anchor_left = 0.321
-anchor_top = 0.79300004
+anchor_top = 0.793
 anchor_right = 0.407
-anchor_bottom = 0.96500003
-offset_left = 0.2079773
-offset_top = 0.13598633
-offset_right = 0.13598633
-offset_bottom = -0.32000732
+anchor_bottom = 0.965
+offset_left = 0.207977
+offset_top = 0.135986
+offset_right = 0.135986
+offset_bottom = -0.320007
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_kek77")
@@ -249,12 +249,12 @@ text = "Re"
 [node name="Label" type="Label" parent="CanvasLayer/Control/PauseUI"]
 anchors_preset = -1
 anchor_left = 0.367
-anchor_top = 0.22500001
-anchor_right = 0.61700004
+anchor_top = 0.225
+anchor_right = 0.617
 anchor_bottom = 0.5
-offset_left = 0.2159729
-offset_top = 0.19999695
-offset_right = 0.21594238
+offset_left = 0.215973
+offset_top = 0.199997
+offset_right = 0.215942
 offset_bottom = 2.0
 theme_override_font_sizes/font_size = 41
 text = "Space:投下
@@ -262,7 +262,6 @@ A D:アイテム選択
 Esc:ポーズ"
 
 [node name="Result" type="CanvasLayer" parent="CanvasLayer/Control"]
-visible = false
 script = ExtResource("7_4c57u")
 
 [node name="BackGround" type="ColorRect" parent="CanvasLayer/Control/Result"]
@@ -271,18 +270,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+color = Color(0.303233, 0.303233, 0.303233, 1)
 
 [node name="ExitButton" type="Button" parent="CanvasLayer/Control/Result"]
 anchors_preset = -1
 anchor_left = 0.564
-anchor_top = 0.79300004
-anchor_right = 0.70500004
-anchor_bottom = 0.96800005
-offset_left = 0.27197266
-offset_top = 2.1359863
-offset_right = -0.16003418
-offset_bottom = -0.2640381
+anchor_top = 0.793
+anchor_right = 0.705
+anchor_bottom = 0.968
+offset_left = 0.271973
+offset_top = 2.13599
+offset_right = -0.160034
+offset_bottom = -0.264038
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_kek77")
@@ -292,13 +291,13 @@ text = "EXIT"
 [node name="RestartButton" type="Button" parent="CanvasLayer/Control/Result"]
 anchors_preset = -1
 anchor_left = 0.321
-anchor_top = 0.79300004
-anchor_right = 0.55600005
-anchor_bottom = 0.96500003
-offset_left = 0.2079773
-offset_top = 0.13598633
-offset_right = -0.51208496
-offset_bottom = -0.32000732
+anchor_top = 0.793
+anchor_right = 0.556
+anchor_bottom = 0.965
+offset_left = 0.207977
+offset_top = 0.135986
+offset_right = -0.512085
+offset_bottom = -0.320007
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_kek77")
@@ -307,14 +306,14 @@ text = "Restart"
 
 [node name="ResultLabel" type="Label" parent="CanvasLayer/Control/Result"]
 anchors_preset = -1
-anchor_left = 0.31800002
+anchor_left = 0.318
 anchor_top = 0.164
-anchor_right = 0.71400005
+anchor_right = 0.714
 anchor_bottom = 0.795
-offset_left = -0.33602905
-offset_top = -0.27200317
-offset_right = 0.47192383
-offset_bottom = -0.16003418
+offset_left = -0.336029
+offset_top = -0.272003
+offset_right = 0.471924
+offset_bottom = -0.160034
 theme_override_font_sizes/font_size = 40
 text = "投下したメダルの数:100
 投下したボムの数:100
@@ -323,6 +322,21 @@ text = "投下したメダルの数:100
 ジャックポットに入った回数:1
 最終メダル数:20
 "
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Result"]
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.083
+anchor_right = 0.28
+anchor_bottom = 0.361
+offset_left = 0.439999
+offset_top = 0.215996
+offset_right = 0.440002
+offset_bottom = 0.0719757
+theme_override_font_sizes/font_size = 41
+text = "Space:投下
+A D:アイテム選択
+Esc:ポーズ"
 
 [node name="TitleScreen" type="CanvasLayer" parent="CanvasLayer/Control"]
 visible = false
@@ -333,18 +347,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+color = Color(0.303233, 0.303233, 0.303233, 1)
 
 [node name="StartButton" type="Button" parent="CanvasLayer/Control/TitleScreen"]
 anchors_preset = -1
 anchor_left = 0.37
-anchor_top = 0.79300004
-anchor_right = 0.63000005
-anchor_bottom = 0.9480001
-offset_left = -0.23999023
-offset_top = 0.13598633
-offset_right = 0.2399292
-offset_bottom = -0.30407715
+anchor_top = 0.793
+anchor_right = 0.63
+anchor_bottom = 0.948
+offset_left = -0.23999
+offset_top = 0.135986
+offset_right = 0.239929
+offset_bottom = -0.304077
 pivot_offset = Vector2(150, 50)
 theme = SubResource("Theme_4c57u")
 theme_override_font_sizes/font_size = 60
@@ -353,12 +367,12 @@ text = "スタート"
 [node name="Label" type="Label" parent="CanvasLayer/Control/TitleScreen"]
 anchors_preset = -1
 anchor_left = 0.367
-anchor_top = 0.22500001
-anchor_right = 0.61700004
+anchor_top = 0.225
+anchor_right = 0.617
 anchor_bottom = 0.5
-offset_left = 0.2159729
-offset_top = 0.19999695
-offset_right = 0.21594238
+offset_left = 0.215973
+offset_top = 0.199997
+offset_right = 0.215942
 offset_bottom = 2.0
 theme_override_font_sizes/font_size = 41
 text = "Space:投下
@@ -380,14 +394,14 @@ mesh = SubResource("BoxMesh_7mycd")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115, 0, 0)
 
 [node name="Upper" type="Label3D" parent="monitor/TrialVersionMessages"]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0.2, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.2, 0)
 modulate = Color(1, 0, 0, 1)
 outline_modulate = Color(1, 1, 0, 1)
 text = "終わりなき革命モード
 "
 
 [node name="Lower" type="Label3D" parent="monitor/TrialVersionMessages"]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 modulate = Color(1, 0, 0, 1)
 outline_modulate = Color(1, 1, 0, 1)
 text = "(つまりJACKPOT無しの体験版モード)
@@ -399,13 +413,13 @@ environment = ExtResource("6_7mycd")
 
 [node name="TargetingEntity" type="CharacterBody3D" parent="."]
 process_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57675385, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.576754, 0)
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("8_kek77")
 
 [node name="Aim" type="Sprite3D" parent="TargetingEntity"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.08, 0.32517105, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.08, 0.325171, 0)
 pixel_size = 0.0007
 texture = ExtResource("5_5vw27")
 
